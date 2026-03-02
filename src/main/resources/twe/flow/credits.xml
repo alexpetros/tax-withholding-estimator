@@ -61,17 +61,17 @@
       <p condition="/flowShouldShowEitcSection" operator="isTrue"><modal-link for="modal-eitc-who-can-claim">Who can claim the EITC?</modal-link></p>
       <fg-set path="/eitcQualifyingChildren" if-true="/flowShouldAskForEitcQualifyingChildren">
         <question>Number of qualifying children</question>
-        <hint>Don't count children without a Social Security Number (SSN). Leave blank if you <span condition="/isFilingStatusMFJ" operator="isTrue">or your spouse</span> don't have an SSN.</hint>
+        <hint>Don't count children without a Social Security number (SSN). Leave blank if you <span condition="/isFilingStatusMFJ" operator="isTrue">or your spouse</span> don't have an SSN.</hint>
         <input type="int"/>
       </fg-set>
       <fg-set path="/primaryFilerAge25OrOlderForEitc" if-true="/flowShouldAskWhetherPrimaryFilerAge25OrOlderForEitc">
         <question>Will you be 25 years old or older on January 1, <fg-show path="/nextTaxYear"/>?</question>
-        <hint>Select "No" if you don't have an SSN.</hint>
+        <hint>Select "No" if you don't have a Social Security number.</hint>
         <input type="boolean"/>
       </fg-set>
       <fg-set path="/secondaryFilerAge25OrOlderForEitc" if-true="/flowShouldAskWhetherSecondaryFilerAge25OrOlderForEitc">
         <question>Will your spouse be 25 years old or older on January 1, <fg-show path="/nextTaxYear"/>?</question>
-        <hint>Select "No" if your spouse doesn't have an SSN.</hint>
+        <hint>Select "No" if your spouse doesn't have a Social Security number.</hint>
         <input type="boolean"/>
       </fg-set>
 

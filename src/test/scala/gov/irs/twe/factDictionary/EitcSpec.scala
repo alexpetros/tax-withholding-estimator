@@ -167,27 +167,38 @@ class EitcSpec extends AnyFunSuite with TableDrivenPropertyChecks {
         "secondaryFilerAge65OrOlder",
         "primaryFilerIsClaimedOnAnotherReturn",
         "secondaryFilerIsClaimedOnAnotherReturn",
+        "flowShouldAskWhetherPrimaryFilerAge25OrOlderForEitc",
         "primaryFilerAge25OrOlderForEitc",
         "primaryFilerIsClaimingDependents",
         "eitcQualifyingChildren",
         "expectedFlowShouldAskWhetherSecondaryFilerAge25OrOlderForEitc",
       ),
       // "true" cases
-      (mfj, false, false, false, false, false, None, true),
-      (mfj, false, false, false, false, true, Some(0), true),
+      // - secondary filer meets all eligibility requirements, without claimed dependents
+      (mfj, false, false, false, true, Some(false), false, None, true),
+      (mfj, false, false, false, false, None, false, None, true), // primary filer did not qualify
+      // - secondary filer meets all eligibility requirements, claiming no dependents for eitc
+      (mfj, false, false, false, true, Some(false), true, Some(0), true),
+      (mfj, false, false, false, false, None, true, Some(0), true), // primary filer did not qualify
+      // - secondary filer meets all eligibility requirements, without claimed dependents
+      (mfj, false, false, false, true, Some(false), false, None, true),
+      (mfj, false, false, false, false, None, false, None, true), // primary filer did not qualify
+      // - secondary filer meets all eligibility requirements, claiming no dependents for eitc
+      (mfj, false, false, false, true, Some(false), true, Some(0), true),
+      (mfj, false, false, false, false, None, true, Some(0), true), // primary filer did not qualify
 
       // "false" cases
       // - must be MFJ
-      (single, false, false, false, false, false, None, false),
+      (single, false, false, false, true, Some(false), false, None, false),
       // - secondary filer must be under 65
-      (mfj, true, false, false, false, false, None, false),
+      (mfj, true, false, false, true, Some(false), false, None, false),
       // - neither filer can be claimed on another return
-      (mfj, false, true, false, false, false, None, false),
-      (mfj, false, false, true, false, false, None, false),
+      (mfj, false, true, false, true, Some(false), false, None, false),
+      (mfj, false, false, true, true, Some(false), false, None, false),
       // - don't need to ask the question if the primary filer already qualified
-      (mfj, false, false, false, true, false, None, false),
+      (mfj, false, false, false, true, Some(true), false, None, false),
       // - don't need to ask if has qualified children
-      (mfj, false, false, false, false, true, Some(1), false),
+      (mfj, false, false, false, true, Some(false), true, Some(1), false),
     )
 
     forAll(parameterizedTests) {
@@ -196,6 +207,7 @@ class EitcSpec extends AnyFunSuite with TableDrivenPropertyChecks {
           secondaryFilerAge65OrOlder,
           primaryFilerIsClaimedOnAnotherReturn,
           secondaryFilerIsClaimedOnAnotherReturn,
+          flowShouldAskWhetherPrimaryFilerAge25OrOlderForEitc,
           primaryFilerAge25OrOlderForEitc,
           primaryFilerIsClaimingDependents,
           eitcQualifyingChildren,
@@ -209,10 +221,15 @@ class EitcSpec extends AnyFunSuite with TableDrivenPropertyChecks {
           Path("/secondaryFilerAge65OrOlder") -> secondaryFilerAge65OrOlder,
           Path("/primaryFilerIsClaimedOnAnotherReturn") -> primaryFilerIsClaimedOnAnotherReturn,
           Path("/secondaryFilerIsClaimedOnAnotherReturn") -> secondaryFilerIsClaimedOnAnotherReturn,
-          Path("/primaryFilerAge25OrOlderForEitc") -> primaryFilerAge25OrOlderForEitc,
+          Path(
+            "/flowShouldAskWhetherPrimaryFilerAge25OrOlderForEitc",
+          ) -> flowShouldAskWhetherPrimaryFilerAge25OrOlderForEitc, // Mock derived fact for test simplicity
           Path("/primaryFilerIsClaimingDependents") -> primaryFilerIsClaimingDependents,
         )
         eitcQualifyingChildren.foreach(numberEntered => graph.set(Path("/eitcQualifyingChildren"), numberEntered))
+        primaryFilerAge25OrOlderForEitc.foreach(primaryFilerAnswer =>
+          graph.set(Path("/primaryFilerAge25OrOlderForEitc"), primaryFilerAnswer),
+        )
 
         // when
         val flowShouldAskWhetherSecondaryFilerAge25OrOlderForEitc =

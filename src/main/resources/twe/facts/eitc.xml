@@ -97,10 +97,18 @@
           </Not>
           <!-- Neither filer is claimed on someone else's return -->
           <Dependency path="/neitherFilerIsClaimedOnAnotherReturn"/>
-          <!-- enter "No" to the self 25+ age question (only 1 taxpayer must certify) -->
-          <Not>
-            <Dependency path="/primaryFilerAge25OrOlderForEitc"/>
-          </Not>
+          <!-- enter "No" to the self 25+ age question, if asked (only 1 taxpayer must certify) -->
+          <Any>
+            <All>
+              <Dependency path="/flowShouldAskWhetherPrimaryFilerAge25OrOlderForEitc"/>
+              <Not>
+                <Dependency path="/primaryFilerAge25OrOlderForEitc"/>
+              </Not>
+            </All>
+            <Not>
+              <Dependency path="/flowShouldAskWhetherPrimaryFilerAge25OrOlderForEitc"/>
+            </Not>
+          </Any>
           <!-- is not claiming dependents OR enters 0 qualifying children -->
           <Dependency path="/hasNoEitcQualifyingChildren"/>
         </All>
