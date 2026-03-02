@@ -94,7 +94,7 @@
 
       <h3 condition="/wantsQBIDeductionOverride" operator="isTrue">Qualified business income (QBI) estimate</h3>
       <div condition="/wantsQBIDeductionOverride" operator="isTrue">
-        <p>To estimate QBI, calculate</p>
+        <p>To estimate QBI, calculate:</p>
         <ol>
           <li>Expected business income for <fg-show path="/taxYear"/></li>
           <li>Minus ordinary business expenses (like rent, supplies, and employee benefits)</li>
@@ -106,6 +106,7 @@
       </div>
       <fg-set path="/qBIDeductionOverrideAmount" if-true="/wantsQBIDeductionOverride">
         <question>Estimated QBI for you <span condition="/isFilingStatusMFJ" operator="isTrue">and your spouse</span> in <fg-show path="/taxYear"/></question>
+        <hint>If you’re not sure, it’s okay to enter $0.</hint>
         <input type="dollar"/>
       </fg-set>
     </section>
