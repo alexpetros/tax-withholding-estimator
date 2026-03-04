@@ -9,3 +9,8 @@
 fg-show {
   background-color: lightyellow;
 }
+
+/* usa-prose included here to out-specify USWDS */
+.usa-prose fact-link a, fact-link a {
+  color: inherit;
+}

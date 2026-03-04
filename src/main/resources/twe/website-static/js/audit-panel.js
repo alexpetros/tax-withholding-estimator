@@ -12,25 +12,29 @@ window.pathSelectListener = (event) => {
   if (event.key === 'Enter') trackSelectedFact()
 }
 
-class AuditedFact extends HTMLElement {
-  static factLinkClass = 'audit-panel__fact__definition__dependency'
+class FactLink extends HTMLElement {
+  connectedCallback () {
+    this.path = this.getAttribute('path')
+    this.collectionId = this.getAttribute('collectionId')
 
+    const link = document.createElement('a')
+    link.href = `#${this.path}`
+    while (this.firstChild) { link.appendChild(this.firstChild) } // Move all children to the link
+    link.onclick = () => {
+      trackFact(this.path, this.collectionId)
+      return false
+    }
+    this.replaceChildren(link)
+  }
+}
+customElements.define('fact-link', FactLink)
+
+class AuditedFact extends HTMLElement {
   constructor () {
     super()
 
     this.deleteListener = () => this.remove()
     this.renderListener = () => this.render()
-    this.handleLinksListener = (e) => {
-      if (e.target?.classList.contains(AuditedFact.factLinkClass)) {
-        return this.trackDependencyListener(e)
-      }
-    }
-
-    this.trackDependencyListener = (e) => {
-      e.preventDefault()
-      trackFact(e.target.href.replace(/.*#\//, '/'), this.getAttribute('collectionid'))
-      return false
-    }
 
     const templateContent = document.querySelector('#audit-panel__fact').content.cloneNode(true)
     this.attachShadow({ mode: 'open' })
@@ -90,9 +94,8 @@ class AuditedFact extends HTMLElement {
         return result
       }
       // but we can resolve relative paths ("../income")
-      const resolvedPath = rawPath.replace('..', this.abstractPath.replace(/\*\/.*/, '*'))
-
-      const link = `<a class="${AuditedFact.factLinkClass}" href="#${resolvedPath}">${rawPath}</a>`
+      const abstractPath = rawPath.replace('..', this.abstractPath.replace(/\*\/.*/, '*'))
+      const link = `<fact-link path="${abstractPath}" collectionId="${this.collectionId}">${rawPath}</fact-link>`
       return result.replace(`path="${rawPath}"`, `path="${link}"`)
     }, stringDefinition)
 
@@ -148,12 +151,10 @@ export function enable () {
   // Add links to all the <fg-show>s
   const fgShows = document.querySelectorAll('fg-show')
   for (const fgShow of fgShows) {
-    const link = document.createElement('a')
-    link.classList.add(AuditedFact.factLinkClass)
-    link.href = `#${fgShow.path}`
-    link.onclick = (e) => { e.preventDefault(); trackFact(fgShow.path) }
-    fgShow.parentElement.replaceChild(link, fgShow)
-    link.append(fgShow)
+    const factLink = document.createElement('fact-link')
+    factLink.setAttribute('path', fgShow.path)
+    factLink.append(fgShow.cloneNode())
+    fgShow.parentElement.replaceChild(factLink, fgShow)
   }
 
   // Load fact paths once the fact graph is available (if it isn't already)
