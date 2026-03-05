@@ -781,14 +781,14 @@
     <modal-dialog id="modal-what-counts-social-security">
       <modal-heading>What counts as Social Security income?</modal-heading>
       <modal-content>
-        <p>Social security is benefit payments made to retirees, people with disabilities, and their families through the Social Security Administration (SSA). To report this income at the end of the year, the SSA sends Form SSA-1099.</p>
+        <p>Social Security is benefit payments made to retirees, people with disabilities, and their families through the Social Security Administration (SSA). To report this income at the end of the year, the SSA sends Form SSA-1099.</p>
         <p><strong>Don’t include</strong> Supplemental Security Income (SSI) payments. The estimator doesn’t currently support SSI payments.</p>
       </modal-content>
     </modal-dialog>
     <modal-dialog id="modal-fed-tax-social-security-pay-period">
       <modal-heading>What’s the monthly benefit amount and where do I find it?</modal-heading>
       <modal-content>
-        <p>The monthly benefit amount is the total you receive from Social Security each month before any deductions, Medicare premiums, or taxes are taken out.</p>
+        <p>The monthly benefit amount is the total you receive from Social Security each month <strong>before</strong> any deductions, Medicare premiums, or taxes are taken out.</p>
         <p>It’s okay to estimate. To find the exact amount:</p>
         <ol>
           <li>Log into <a target="_blank" href="https://www.ssa.gov/myaccount/" class="usa-link">my Social Security account<span class="usa-sr-only"/></a></li>
