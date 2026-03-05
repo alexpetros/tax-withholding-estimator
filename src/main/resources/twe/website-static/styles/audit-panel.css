@@ -3,6 +3,27 @@
     display: block;
     margin: 1rem 0;
   }
+
+  .inline {
+    display: inline;
+  }
+
+  #copy-fg-status {
+    opacity: 0;
+    visibility: hidden;
+    padding-left: 1rem;
+  }
+
+  .animate-success {
+    animation: fadeInOut 2s ease-in-out;
+  }
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0;  visibility: visible;}
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; visibility: hidden;}
 }
 
 /* This is deliberately applied to the whole page, not just the audit panel */

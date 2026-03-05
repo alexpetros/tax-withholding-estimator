@@ -144,6 +144,21 @@ function makeCollectionIdPath (abstractPath, id) {
   return abstractPath.replace('*', `#${id}`)
 }
 
+async function copyFactGraphToClipboard () {
+  const fg = window.factGraph.toJson()
+  const status = document.getElementById('copy-fg-status')
+  try {
+    await navigator.clipboard.writeText(fg)
+    status.classList.add('animate-success')
+    status.onanimationend = () => {
+      status.classList.remove('animate-success')
+    }
+  } catch (err) {
+    console.error(`Failed to copy: ${err}`)
+  }
+}
+window.copyFactGraphToClipboard = copyFactGraphToClipboard
+
 export function enable () {
   document.querySelector('#audit-panel-styles').disabled = false
   document.querySelector('#audit-panel').classList.remove('hidden')
