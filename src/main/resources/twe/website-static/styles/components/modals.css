@@ -28,7 +28,7 @@
   text-align: left;
   box-shadow: 0 0 10px rgba(0,0,0,.3);
   z-index: 1050;
-  width: 100%;
+  width: 90vw;
   @media (prefers-reduced-motion: reduce) {
     animation: none;
   }
