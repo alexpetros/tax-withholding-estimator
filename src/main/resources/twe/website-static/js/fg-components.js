@@ -193,16 +193,10 @@ class FgSet extends HTMLElement {
     // Place the error div just before the invalid field location
     errorLocation.insertAdjacentElement('beforebegin', errorDiv)
 
-    // If the error is inside a details element, open it
-    // TODO: we can migrate all accordions to details/summary and remove the next block
-    const detailsElement = this.closest('details')
-    if (detailsElement) detailsElement.setAttribute('open', '')
-
     // If the element is inside of a closed accordion, open it
-    const accordionContent = this.closest('.usa-accordion__content')
-    if (accordionContent && accordionContent.getAttribute('hidden') !== null) {
-      accordionContent.removeAttribute('hidden')
-      accordionContent.previousElementSibling.querySelector('.usa-accordion__button').setAttribute('aria-expanded', 'true')
+    const detailsContent = this.closest('details')
+    if (detailsContent && detailsContent.open === false) {
+      detailsContent.open = true
     }
 
     // Set aria-description
@@ -525,10 +519,16 @@ class FgCollection extends HTMLElement {
     const collectionItem = document.createElement('fg-collection-item')
     collectionItem.setAttribute('collectionPath', this.path)
     collectionItem.setAttribute('collectionId', collectionId)
-    const collectionItemsContainer = this.querySelector('.usa-accordion')
+    const collectionItemsContainer = this.querySelector('.fg-collection__item-container')
     collectionItemsContainer.appendChild(collectionItem)
-    const collectionAccordionButton = collectionItem.querySelector('.usa-accordion__button')
-    collectionAccordionButton?.focus()
+    const collectionItemButton = collectionItem.querySelector('summary')
+
+    const detailsElement = collectionItem.querySelector('details')
+    if (detailsElement) {
+      detailsElement.open = true
+    }
+
+    collectionItemButton?.focus()
     document.dispatchEvent(new CustomEvent('fg-update'))
   }
 }
@@ -554,11 +554,16 @@ class FgCollectionItem extends HTMLElement {
 
     this.append(templateContent)
 
-    // Set up accordion ids to enable interactions
-    const collectionAccordionButton = this.querySelector('.usa-accordion__button')
-    const collectionItemContent = this.querySelector('.usa-accordion__content')
-    collectionAccordionButton.setAttribute('aria-controls', `collection-item-${collectionId}`)
+    // Set up collection item detail IDs to enable interactions
+    const collectionItemButton = this.querySelector('.fg-collection__item-container summary')
+    const collectionItemContent = this.querySelector('.fg-collection__item-container details')
+    collectionItemButton.setAttribute('aria-controls', `collection-item-${collectionId}`)
     collectionItemContent.setAttribute('id', `collection-item-${collectionId}`)
+
+    // Open the details element by default.
+    if (collectionItemContent.open === false) {
+      collectionItemContent.open = true
+    }
 
     this.removeButton = this.querySelector('.fg-collection-item__remove-item')
     const modalId = this.removeButton.getAttribute('for')

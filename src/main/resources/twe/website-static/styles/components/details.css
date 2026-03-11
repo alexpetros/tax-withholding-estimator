@@ -19,6 +19,11 @@
   }
 }
 
+.flow details > summary:not(.fg-collection__item-button) {
+    background-color: var(--base-lightest);
+
+  }
+
 .flow details > summary {
   display: block;
   background-color: var(--base-lightest);
@@ -35,6 +40,7 @@
   &:hover {
     background-color: var(--gray-10);
   }
+
   &:focus {
     outline: var(--units-05) solid var(--blue-40v);
     outline-offset: 0;
@@ -46,10 +52,8 @@
   }
 }
 
-.flow details[open] {
-  summary {
-      background-image: url("/app/tax-withholding-estimator/resources/vendor/uswds-3.13.0/img/usa-icons/remove.svg"), linear-gradient(transparent, transparent);
-  }
+.flow details[open] > summary {
+  background-image: url("/app/tax-withholding-estimator/resources/vendor/uswds-3.13.0/img/usa-icons/remove.svg"), linear-gradient(transparent, transparent);
 }
 
 .flow details[open] .details-content {

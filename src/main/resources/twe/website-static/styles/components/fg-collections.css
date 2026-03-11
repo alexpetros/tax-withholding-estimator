@@ -7,6 +7,24 @@ fg-collection-item {
   margin: var(--units-1) 0;
 }
 
+.flow details.fg-collection__details {
+  &:last-child {
+    margin-bottom:0;
+  }
+}
+
+.flow details > .fg-collection__item-button {
+    background-color: var(--primary-lightest);
+}
+
+.flow details > .fg-collection__item-button:hover {
+  background-color: var(--primary-lighter);
+}
+
+.flow details[open] .fg-collection__item-content {
+  border-color: var(--primary-lightest);
+}
+
 .fg-collection__add-item {
   gap: 0.25rem;
   margin-bottom: var(--units-3);
