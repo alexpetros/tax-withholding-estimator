@@ -7,26 +7,30 @@
 
       <fg-alert alert-type="warning" alert-key="withholding-gap-incomplete" condition="/withholdingGap" operator="notHasValue">
         <heading>You still need to complete earlier steps</heading>
-        <p class="usa-alert__text">
-          To use the estimator, you'll have to go back and complete <a href="/app/tax-withholding-estimator/">Step 1: About You</a>
+        <p class="usa-alert__text"> To use the estimator, you’ll have to go back and complete <a href="/app/tax-withholding-estimator/">Step 1: About You</a>
         </p>
       </fg-alert>
 
       <div condition="/isOverwithheld" operator="isTrue">
-        <p>Based on what you entered, we estimate that <strong>you're withholding more taxes than you need to.</strong></p>
+        <p>Based on what you entered, we estimate that <strong>you’re withholding more taxes than you need to.</strong></p>
 
-        <p condition="/cannotZeroOutRefundDueToExcessWithholding" operator="isTrue">You'll likely get a tax refund when you file your <fg-show path="/taxYear"/> federal tax return.</p>
-        <p condition="/cannotZeroOutRefundDueToExcessWithholding" operator="isTrue">If you'd like to get more take-home pay and reduce your estimated refund, you can <a class="usa-link" href="#heading-adjust-withholding-for-more-take-home-pay">adjust your withholding</a> to $0.</p>
+        <p condition="/cannotZeroOutRefundDueToExcessWithholding" operator="isTrue">You’ll likely get a tax refund when you file your <fg-show path="/taxYear"/> federal tax return.</p>
+        <p condition="/cannotZeroOutRefundDueToExcessWithholding" operator="isTrue">
+          <span condition="/eligibleRemainingPayPeriodsGreaterThanZero" operator="isTrue">If you’d like to get more take-home pay and reduce your estimated refund, you can <a class="usa-link" href="#heading-adjust-withholding-for-more-take-home-pay">adjust your withholding</a> to $0.</span>
+        </p>
 
-        <p condition="/cannotZeroOutRefundDueToExcessWithholding" operator="isFalse">If you keep your withholding the same, you'll likely get a tax refund when you file your <fg-show path="/taxYear"/> federal tax return.</p>
-        <p condition="/cannotZeroOutRefundDueToExcessWithholding" operator="isFalse">If you'd like to get more take-home pay and reduce your estimated refund, you can <a class="usa-link" href="#heading-adjust-withholding-for-more-take-home-pay">adjust your withholding</a>.</p>
+        <p condition="/cannotZeroOutRefundDueToExcessWithholding" operator="isFalse">
+          <span condition="/eligibleRemainingPayPeriodsGreaterThanZero" operator="isTrue">If you keep your withholding the same, you’ll</span>
+          <span condition="/eligibleRemainingPayPeriodsGreaterThanZero" operator="isFalse">You’ll</span> likely get a tax refund when you file your <fg-show path="/taxYear"/> federal tax return.</p>
+        <p condition="/cannotZeroOutRefundDueToExcessWithholding" operator="isFalse">
+          <span condition="/eligibleRemainingPayPeriodsGreaterThanZero" operator="isTrue">If you’d like to get more take-home pay and reduce your estimated refund, you can <a class="usa-link" href="#heading-adjust-withholding-for-more-take-home-pay">adjust your withholding</a>.</span>
+        </p>
       </div>
 
       <div condition="/isUnderwithheld" operator="isTrue">
-        <p>Based on what you entered, we estimate that <strong>you're not withholding enough taxes.</strong></p>
-        <p>
-          If you keep your withholding the same, you’ll likely owe taxes when you file your <fg-show path="/taxYear"/> federal tax return.
-          <span condition="/mayBeSubjectToUnderpaymentPenalty" operator="isTrue">
+        <p>Based on what you entered, we estimate that <strong>you’re not withholding enough taxes.</strong></p>
+        <p><span condition="/eligibleRemainingPayPeriodsGreaterThanZero" operator="isTrue">If you keep your withholding the same, you’ll</span>
+          <span condition="/eligibleRemainingPayPeriodsGreaterThanZero" operator="isFalse">You'll</span> likely owe taxes when you file your <fg-show path="/taxYear"/> federal tax return. <span condition="/mayBeSubjectToUnderpaymentPenalty" operator="isTrue">
             You may have to pay a penalty in addition to what you owe if you owe at least $1,000 and more than 10 percent of your tax bill.
           </span>
         </p>
@@ -34,20 +38,35 @@
         <p>
           <span condition="/mayBeSubjectToUnderpaymentPenalty" operator="isFalse">If you’d like to get your tax balance closer to $0,</span>
           <span condition="/mayBeSubjectToUnderpaymentPenalty" operator="isTrue">If you’d like to get your tax balance closer to $0 and avoid paying a penalty,</span>
-          <span condition="/mayNeedToMakeEstimatedPayments" operator="isFalse">you can reduce your take-home pay by <a class="usa-link" href="#heading-adjust-withholding-for-lower-tax-balance">adjusting your withholding</a>.</span>
-          <span condition="/mayNeedToMakeEstimatedPayments" operator="isTrue">you can reduce your take-home pay by <a class="usa-link" href="#heading-adjust-withholding-for-lower-tax-balance">adjusting your withholding</a> and making <a class="usa-link" href="https://www.irs.gov/businesses/small-businesses-self-employed/estimated-taxes">estimated tax payments</a> to make up for the difference between your withholding adjustment and tax owed.</span>
+          <span condition="/mayNeedToMakeEstimatedPayments" operator="isFalse">
+            <span condition="/eligibleRemainingPayPeriodsGreaterThanZero" operator="isTrue">you can reduce your take-home pay by <a class="usa-link" href="#heading-adjust-withholding-for-lower-tax-balance">adjusting your withholding</a>.</span>
+            <span condition="/eligibleRemainingPayPeriodsGreaterThanZero" operator="isFalse">you can make <a class="usa-link" href="https://www.irs.gov/businesses/small-businesses-self-employed/estimated-taxes">estimated tax payments</a> to make up for the difference between your withholding adjustment and tax owed.</span>
+          </span>
+          <span condition="/mayNeedToMakeEstimatedPayments" operator="isTrue">
+            <span condition="/eligibleRemainingPayPeriodsGreaterThanZero" operator="isTrue">you can reduce your take-home pay by <a class="usa-link" href="#heading-adjust-withholding-for-lower-tax-balance">adjusting your withholding</a> and making <a class="usa-link" href="https://www.irs.gov/businesses/small-businesses-self-employed/estimated-taxes">estimated tax payments</a> to make up for the difference between your withholding adjustment and tax owed.</span>
+            <span condition="/eligibleRemainingPayPeriodsGreaterThanZero" operator="isFalse">you can make <a class="usa-link" href="https://www.irs.gov/businesses/small-businesses-self-employed/estimated-taxes">estimated tax payments</a> to make up for the difference between your withholding adjustment and tax owed.</span>
+          </span>
+
         </p>
       </div>
 
-      <p condition="/isZeroRefund" operator="isTrue">Based on what you entered, we estimate that <strong>you’re withholding enough to cover your federal taxes.</strong></p>
-      <p condition="/isZeroRefund" operator="isTrue">If you keep your withholding the same, it’s likely you won’t owe federal taxes when you file your <fg-show path="/taxYear"/> federal tax return.</p>
-      <p condition="/isZeroRefund" operator="isTrue">If you <a class="usa-link" href="#heading-adjust-withholding">adjust your withholding</a>, your federal tax balance and take-home pay will change.</p>
+      <div condition="/isZeroRefund" operator="isTrue">
+        <p> Based on what you entered, we estimate that <strong>you’re withholding enough to cover your federal taxes.</strong></p>
+        <p>
+          <span condition="/eligibleRemainingPayPeriodsGreaterThanZero" operator="isTrue">If you keep your withholding the same, it’s</span>
+          <span condition="/eligibleRemainingPayPeriodsGreaterThanZero" operator="isFalse">It’s</span> likely you won’t owe federal taxes when you file your <fg-show path="/taxYear"/> federal tax return. </p>
+        <p condition="/eligibleRemainingPayPeriodsGreaterThanZero" operator="isTrue"> If you <a class="usa-link" href="#heading-adjust-withholding">adjust your withholding</a>, your federal tax balance and take-home pay will change. </p>
+      </div>
 
       <div class="fg-estimate">
         <h3 class="fg-estimate__heading" condition="/isOverwithheld" operator="isTrue">Estimated federal tax refund</h3>
         <h3 class="fg-estimate__heading" condition="/isOverwithheld" operator="isFalse">Estimated federal tax owed</h3>
-        <p class="fg-estimate__amount fg-estimate__amount-under-withheld" condition="/isUnderwithheld" operator="isTrue"><fg-show path="/withholdingGap"/></p>
-        <p class="fg-estimate__amount" condition="/isUnderwithheld" operator="isFalse"><fg-show path="/withholdingSurplus"/></p>
+        <p class="fg-estimate__amount fg-estimate__amount-under-withheld" condition="/isUnderwithheld" operator="isTrue">
+          <fg-show path="/withholdingGap"/>
+        </p>
+        <p class="fg-estimate__amount" condition="/isUnderwithheld" operator="isFalse">
+          <fg-show path="/withholdingSurplus"/>
+        </p>
       </div>
       <details class="fg-estimate__details">
         <summary>
@@ -151,18 +170,24 @@
         </div>
       </details>
 
-      <h3 id="heading-adjust-withholding-for-more-take-home-pay" condition="/isOverwithheld" operator="isTrue">How to adjust your withholding to get more take-home pay, which will reduce your estimated refund</h3>
-      <h3 id="heading-adjust-withholding-for-lower-tax-balance" condition="/isUnderwithheld" operator="isTrue">How to adjust your withholding to get your tax balance closer to $0, which will reduce your take-home pay</h3>
-      <h3 id="heading-adjust-withholding" condition="/isZeroRefund" operator="isTrue">How to adjust your withholding</h3>
+      <h3 id="heading-adjust-withholding-for-more-take-home-pay" condition="/isOverwithheldAndHasEligibleRemainingPayPeriods" operator="isTrue">How to adjust your withholding to get more take-home pay, which will reduce your estimated refund</h3>
+      <h3 id="heading-adjust-withholding-for-lower-tax-balance" condition="/isUnderwithheldAndHasEligibleRemainingPayPeriods" operator="isTrue">How to adjust your withholding to get your tax balance closer to $0, which will reduce your take-home pay</h3>
+      <h3 id="heading-adjust-withholding" condition="/isZeroRefundAndHasEligibleRemainingPayPeriods" operator="isTrue">How to adjust your withholding</h3>
 
       <p condition="/hasJobsAvailableForExtraWithholdingButNotPensions" operator="isTrue">Use our recommendations to complete Form W-4.</p>
-      <p condition="/hasJobsAvailableForExtraWithholdingButNotPensions" operator="isTrue"><modal-link for="modal-what-is-form-w-4">What's a Form W-4?</modal-link></p>
+      <p condition="/hasJobsAvailableForExtraWithholdingButNotPensions" operator="isTrue">
+        <modal-link for="modal-what-is-form-w-4">What’s a Form W-4?</modal-link>
+      </p>
 
       <p condition="/hasPensionsAvailableForExtraWithholdingButNotJobs" operator="isTrue">Use our recommendations to complete Form W-4P.</p>
-      <p condition="/hasPensionsAvailableForExtraWithholdingButNotJobs" operator="isTrue"><modal-link for="modal-what-is-form-w-4p">What's a Form W-4P?</modal-link></p>
+      <p condition="/hasPensionsAvailableForExtraWithholdingButNotJobs" operator="isTrue">
+        <modal-link for="modal-what-is-form-w-4p">What’s a Form W-4P?</modal-link>
+      </p>
 
       <p condition="/hasJobsAndPensionsAvailableForExtraWithholding" operator="isTrue">Use our recommendations to complete Forms W-4 and W-4P.</p>
-      <p condition="/hasJobsAndPensionsAvailableForExtraWithholding" operator="isTrue"><modal-link for="modal-what-is-form-w-4-and-w-4p">What's a Form W-4 and W-4P?</modal-link></p>
+      <p condition="/hasJobsAndPensionsAvailableForExtraWithholding" operator="isTrue">
+        <modal-link for="modal-what-is-form-w-4-and-w-4p">What’s a Form W-4 and W-4P?</modal-link>
+      </p>
 
       <h4 class="border-top-0" condition="/primaryFilerAndSpouseHaveJobsOrPensionsAvailableForExtraWithholding" operator="isTrue">Your withholding</h4>
       <fg-withholding-adjustments
@@ -176,7 +201,7 @@
         form-type="w-4p"
       />
 
-      <h4 class="border-top-0" condition="/spouseHasJobsOrPensionsAvailableForExtraWithholding" operator="isTrue">Your spouse's withholding</h4>
+      <h4 class="border-top-0" condition="/spouseHasJobsOrPensionsAvailableForExtraWithholding" operator="isTrue">Your spouse’s withholding</h4>
       <fg-withholding-adjustments
         if-true="/spouseHasJobsAvailableForExtraWithholding"
         path="/jobsAvailableForExtraWithholdingAssignedToSpouse"
@@ -238,7 +263,7 @@
       <modal-heading>Why is this recommended?</modal-heading>
       <modal-content>
         <p>This is where you can say if you have more than one job, or if you and your spouse (if filing jointly) both work.</p>
-        <p>Leave this unchecked because the estimator's recommendation already takes multiple jobs (if present) into account so you don't have to reveal this information to your employer.</p>
+        <p>Leave this unchecked because the estimator’s recommendation already takes multiple jobs (if present) into account so you don’t have to reveal this information to your employer.</p>
       </modal-content>
     </modal-dialog>
     <modal-dialog id="modal-why-step-3">
@@ -252,14 +277,14 @@
       <modal-heading>Why is this recommended?</modal-heading>
       <modal-content>
         <p>Step 4 accounts for any differences between the income you earn from this job and your other taxable income. The amounts entered here help to adjust your withholding to account for this difference.</p>
-        <p><strong>Step 4(a)</strong> is used if you entered other sources of taxable income into the estimator that's not from jobs, pensions, or annuities.</p>
+        <p><strong>Step 4(a)</strong> is used if you entered other sources of taxable income into the estimator that’s not from jobs, pensions, or annuities.</p>
       </modal-content>
     </modal-dialog>
     <modal-dialog id="modal-why-w-4p-step-4-a">
       <modal-heading>Why is this recommended?</modal-heading>
       <modal-content>
         <p>Step 4 accounts for any differences between the income you earn from this pension or annuity and your other taxable income. The amounts entered here help to adjust your withholding to account for this difference.</p>
-        <p><strong>Step 4(a)</strong> is used if you entered other sources of taxable income into the estimator that's not from jobs, pensions, or annuities.</p>
+        <p><strong>Step 4(a)</strong> is used if you entered other sources of taxable income into the estimator that’s not from jobs, pensions, or annuities.</p>
       </modal-content>
     </modal-dialog>
     <modal-dialog id="modal-why-w-4-step-4-b">

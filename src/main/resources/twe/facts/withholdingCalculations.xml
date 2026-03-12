@@ -543,6 +543,14 @@
         </LessThan>
       </Derived>
     </Fact>
+    <Fact path="/isOverwithheldAndHasEligibleRemainingPayPeriods">
+      <Derived>
+        <All>
+          <Dependency path="/isOverwithheld"/>
+          <Dependency path="/eligibleRemainingPayPeriodsGreaterThanZero"/>
+        </All>
+      </Derived>
+    </Fact>
     <Fact path="/isZeroRefund">
       <Derived>
         <Equal>
@@ -555,6 +563,14 @@
         </Equal>
       </Derived>
     </Fact>
+    <Fact path="/isZeroRefundAndHasEligibleRemainingPayPeriods">
+      <Derived>
+        <All>
+          <Dependency path="/isZeroRefund"/>
+          <Dependency path="/eligibleRemainingPayPeriodsGreaterThanZero"/>
+        </All>
+      </Derived>
+    </Fact>
     <Fact path="/isUnderwithheld">
       <Derived>
         <GreaterThan>
@@ -565,6 +581,14 @@
             <Dollar>0</Dollar>
           </Right>
         </GreaterThan>
+      </Derived>
+    </Fact>
+    <Fact path="/isUnderwithheldAndHasEligibleRemainingPayPeriods">
+      <Derived>
+        <All>
+          <Dependency path="/isUnderwithheld"/>
+          <Dependency path="/eligibleRemainingPayPeriodsGreaterThanZero"/>
+        </All>
       </Derived>
     </Fact>
     <Fact path="/mayBeSubjectToUnderpaymentPenalty">
@@ -1560,6 +1584,25 @@
               </Right>
             </GreaterThanOrEqual>
           </All>
+        </Any>
+      </Derived>
+    </Fact>
+    <Fact path="/eligibleRemainingPayPeriodsGreaterThanZero">
+      <Description>
+        Returns true if the user has pay periods remaining to reflect
+        changes made with the W-4.
+      </Description>
+      <Derived>
+        <Any>
+          <!-- For both job and pension, IsComplete if /remainingPayPeriodsInteger > /payPeriodsBeforeW4ChangesAppear -->
+          <IsComplete>
+            <Dependency path="/jobSelectedForExtraWithholding"/>
+          </IsComplete>
+
+          <IsComplete>
+            <Dependency path="/pensionSelectedForExtraWithholding"/>
+          </IsComplete>
+
         </Any>
       </Derived>
     </Fact>
