@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <?xml-model href="./FlowConfig.rng"?>
 <FlowConfig>
-  <page title="Standard deduction choice" route="/deductions">
+  <page title="Deduction choice" route="/deductions">
     <section>
       <h2>Standard deduction or itemized deductions</h2>
       <p>When you file your taxes, you can reduce your taxable income by choosing either the <modal-link for="modal-standard-deduction-or-itemize-deductions">standard deduction or itemized deductions</modal-link>.</p>
