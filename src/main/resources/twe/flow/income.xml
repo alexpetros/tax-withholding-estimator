@@ -105,6 +105,7 @@
             <modal-link for="modal-job-gross-pay-period-en">How do I find the gross income per pay period?</modal-link>
             <input type="dollar"/>
           </fg-set>
+          <p condition="/jobs/*/consistentPay" operator="isFalse">Since the pay is very different each paycheck, we’ll use two or three of your most recent paystubs to get an average.</p>
           <fg-set path="/jobs/*/pastPaycheckIncome1" if-false="/jobs/*/consistentPay">
             <question>On the most recent paystub from <fg-show path="/taxYear"/>, what’s the gross income per pay period?</question>
             <hint>This will include any bonus, tip, and overtime pay.</hint>
@@ -298,10 +299,7 @@
           </fg-detail>
           <fg-detail icon="chevron">
             <summary>Health Savings Account (HSA) or Flexible Spending Account (FSA)</summary>
-            <p>
-              Enter total contributions to Health Savings Accounts (HSA) or Flexible Spending
-              Account (FSA).
-            </p>
+            <p>Enter total contributions to your <span condition="/isFilingStatusMFJ" operator="isTrue">spouse’s</span> Health Savings Account (HSA) or Flexible Spending Account (FSA).</p>
             <p> HSA and FSA contribution amounts can usually be found under a <strong>Deductions</strong> or <strong>Pre-Tax</strong> section on a paystub. </p>
             <p> Learn more about contributions to <a target="_blank" href="https://www.irs.gov/publications/p969#en_US_2024_publink1000204045">HSAs</a> and <a target="_blank" href="https://www.irs.gov/publications/p969#en_US_2024_publink1000204176">FSAs</a>. </p>
             <fg-set path="/jobs/*/hsaOrFsaContributionsPerPayPeriod" if-false="/jobs/*/isPastJob">
@@ -459,7 +457,7 @@
           </fg-detail>
           <fg-detail icon="chevron">
             <summary>Health Savings Account (HSA) or Flexible Spending Account (FSA)</summary>
-            <p>Enter total contributions to Health Savings Accounts (HSA) or Flexible Spending Account (FSA).</p>
+            <p>Enter total contributions to your <span condition="/isFilingStatusMFJ" operator="isTrue">spouse’s</span> Health Savings Account (HSA) or Flexible Spending Account (FSA).</p>
             <p>HSA and FSA contribution amounts can usually be found under a <strong>Deductions</strong> or <strong>Pre-Tax</strong> section on a statement.</p>
             <p>Learn more about contributions to <a target="_blank" href="https://www.irs.gov/publications/p969#en_US_2024_publink1000204045">HSAs</a> and <a target="_blank" href="https://www.irs.gov/publications/p969#en_US_2024_publink1000204176">FSAs</a>.</p>
             <fg-set path="/pensions/*/hsaOrFsaContributionsPerPayPeriod" if-false="/pensions/*/isPastJobIncompleteOrFalse">
@@ -817,7 +815,7 @@
       <modal-content>
         <p>A job is when you earn income by working for an employer. At the end of the year, the employer will send a Form W-2 to report this income.</p>
         <p>
-          <strong>Don’t include income earned through:</strong>
+          <strong>Don’t include</strong> income earned through:
         </p>
         <ul>
           <li>A partnership, trade, or business that you own</li>
@@ -1191,7 +1189,7 @@
         <p>Where to find federal taxes paid <strong>per pay period</strong> on a paystub:</p>
         <ul>
           <li>Federal taxes paid may appear as a single line with a label of <strong>Taxes.</strong> If you have requested extra federal taxes withheld from your paycheck, that extra amount may appear on a separate line. Be sure to add these two amounts.</li>
-          <li>They may also be labeled as, FIT, FITW, FITC, Fed W/H, Fed tax, Fed withholding, Federal income tax or similar</li>
+          <li>They may also be labeled as FIT, FITW, FITC, Fed W/H, Fed tax, Fed withholding, Federal income tax or similar</li>
           <li>Check for the <strong>per-pay-period</strong> amount, which only includes the federal taxes paid on this paycheck</li>
         </ul>
         <p><strong>Don’t include</strong> state taxes, local taxes, Medicare, Social Security, or other amounts withheld.</p>
@@ -1204,7 +1202,7 @@
         <p>Where to find the federal taxes paid <strong>so far this year (year-to-date)</strong> on a paystub:</p>
         <ul>
           <li>Federal taxes paid may appear as a single line with a label of <strong>Taxes.</strong>If you have requested extra federal taxes withheld from your paycheck, that extra amount may appear on a separate line. Be sure to add these two amounts.</li>
-          <li>They may also be labeled as, FIT, FITW, FITC, Fed W/H, Fed tax, Fed withholding, Federal income tax or similar</li>
+          <li>They may also be labeled as FIT, FITW, FITC, Fed W/H, Fed tax, Fed withholding, Federal income tax or similar</li>
           <li>Check for the <strong>year-to-date</strong> or <strong>YTD</strong> amount, which includes all federal taxes paid so far for the year</li>
         </ul>
         <p><strong>Don’t include</strong> state taxes, local taxes, Medicare, Social Security, or other amounts withheld.</p>
