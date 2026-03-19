@@ -49,9 +49,24 @@ case class FgAlertContent(heading: String, body: Map[String, String])
   val flow = Flow.fromXmlConfig(resolvedConfig, tweFactDictionary.factDictionary)
   val site = Website.generate(flow, tweFactDictionary.xml, flags)
 
+  val recursiveFlow = gov.irs.twe.parser.recursive.Flow.fromXmlConfig(resolvedConfig, tweFactDictionary.factDictionary)
+  val recursiveSite = Website.generate(recursiveFlow, tweFactDictionary.xml, flags)
+
+  // assert legacy and recursive output are identical
+  assert(site.pages.length == recursiveSite.pages.length)
+
+  site.pages.zipWithIndex.foreach((page, index) => {
+    val pageContent = page.content.replaceAll(">\\s+<", "><").trim()
+    val recursivePageContent = recursiveSite.pages(index).content.replaceAll(">\\s+<", "><").trim()
+    assert(
+      recursivePageContent == pageContent,
+      s"Recursive parsing of ${page.route} did not match non-recursive output.",
+    )
+  })
+
   // Delete out/ directory and add files to it
   val outDir = os.pwd / "out"
-  site.save(outDir / "app/tax-withholding-estimator")
+  recursiveSite.save(outDir / "app/tax-withholding-estimator")
 
   if !flags.contains("serve") then return // Only start smol if 'serve' flag is set
 

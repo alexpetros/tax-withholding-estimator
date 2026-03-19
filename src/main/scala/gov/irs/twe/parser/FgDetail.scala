@@ -12,7 +12,6 @@ case class FgDetail(
     open: Boolean,
     condition: Option[Condition],
     factDictionary: FactDictionary,
-    pageRoute: String,
 ) {
   def html(templateEngine: TweTemplateEngine): String = {
     val childrenHtml = FgCollection.renderSectionNodes(children, templateEngine)
@@ -32,19 +31,19 @@ case class FgDetail(
 
 object FgDetail {
   private val ValidHeadingTags = Set("h2", "h3", "h4", "h5", "h6")
-  def parse(node: xml.Node, pageRoute: String, factDictionary: FactDictionary): FgDetail = {
+  def parse(node: xml.Node, factDictionary: FactDictionary): FgDetail = {
     val summary = (node \ "summary").headOption match {
       case Some(summaryNode) => summaryNode.child.map(_.toString).mkString.trim
       case None              => ""
     }
     val childNodes = (node \ "_").filter(_.label != "summary")
-    val children = childNodes.map(child => Section.processNode(child, pageRoute, factDictionary)).toList
+    val children = childNodes.map(child => Section.processNode(child, factDictionary)).toList
     val useChevron = (node \@ "icon") == "chevron"
     val rawHeadingTag = (node \@ "heading-tag").trim.toLowerCase
     val headingTag = if (ValidHeadingTags.contains(rawHeadingTag)) rawHeadingTag else "h4"
     val open = (node \@ "open").trim.equalsIgnoreCase("true")
     val condition = Condition.getCondition(node, factDictionary)
 
-    FgDetail(summary, children, useChevron, headingTag, open, condition, factDictionary, pageRoute)
+    FgDetail(summary, children, useChevron, headingTag, open, condition, factDictionary)
   }
 }

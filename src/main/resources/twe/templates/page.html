@@ -45,7 +45,7 @@
       onload="this.classList.remove('hidden')"
     >
     <div id="page-content-wrapper" class="hidden">
-      <div th:utext="${pageXml}"></div>
+      <div th:utext="${pageHtml}"></div>
       <div class="form-actions" th:if="${nextPageHref}">
         <a class="usa-button" th:href="${nextPageHref}" onclick="return handleSectionContinue(event)">
           [[#{buttons.next}]]

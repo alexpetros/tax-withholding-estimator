@@ -30,12 +30,12 @@ case class Page(
 
     // Coerce all fg-show nodes into open, empty tags because HTML doesn't allow custom, self-closing tags
     val regex = new Regex("""<fg-show ([^>]*)>""", "attributes")
-    val pageXml = regex.replaceAllIn(
+    val pageHtml = regex.replaceAllIn(
       pageContent,
       m => s"<fg-show \\${m group "attributes"}></fg-show>",
     )
 
-    pageXml
+    pageHtml
   }
 
   def href(): String = "/app/tax-withholding-estimator" + route + (if (route == "/") "" else "/")
@@ -46,6 +46,7 @@ object Page {
     val title = optionString(page \@ "title").getOrElse(throw InvalidFormConfig("<page> is missing a title attribute"))
     val exclude = (page \@ "exclude-from-stepper").toBooleanOption.getOrElse(false)
 
+    // TODO: is this still used? I don't think so.
     // If there's an html-src attribute, don't process any of the child notes
     // I think an html <include> attribute would be a little nicer but I don't have the time to make
     // that available everywhere, and I think it would be weird if you could only use it in <page>
@@ -61,7 +62,7 @@ object Page {
     val nodes = (page \ "_")
       .map(node =>
         node.label match {
-          case "section"      => PageNode.section(Section.parse(node, route, factDictionary))
+          case "section"      => PageNode.section(Section.parse(node, factDictionary))
           case "modal-dialog" => PageNode.modal(Modal.parse(node))
           case _              => PageNode.rawHTML(node.toString)
         },

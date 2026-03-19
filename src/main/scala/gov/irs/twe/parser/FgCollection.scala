@@ -22,7 +22,6 @@ case class FgCollection(
     condition: Option[Condition],
     nodes: List[FgCollectionNode],
     factDictionary: FactDictionary,
-    pageRoute: String,
     determiner: String,
 ) {
   def html(templateEngine: TweTemplateEngine): String = {
@@ -53,7 +52,7 @@ case class FgCollection(
 }
 
 object FgCollection {
-  def parse(node: xml.Node, pageRoute: String, factDictionary: FactDictionary): FgCollection = {
+  def parse(node: xml.Node, factDictionary: FactDictionary): FgCollection = {
     val path = node \@ "path"
     val itemName = node \@ "item-name"
     val disallowEmpty = node \@ "disallow-empty"
@@ -72,14 +71,14 @@ object FgCollection {
           case "fg-set"          => FgCollectionNode.fgSet(FgSet.parse(node, factDictionary))
           case "fg-section-gate" => FgCollectionNode.fgSectionGate(FgSectionGate.parse(node))
           case "div"             =>
-            val children = (node \ "_").map(c => Section.processNode(c, pageRoute, factDictionary)).toList
+            val children = (node \ "_").map(c => Section.processNode(c, factDictionary)).toList
             FgCollectionNode.divWithContent(node, children)
           case _ => FgCollectionNode.rawHTML(node)
         },
       )
       .toList
 
-    FgCollection(path, itemName, disallowEmpty, condition, nodes, factDictionary, pageRoute, determiner)
+    FgCollection(path, itemName, disallowEmpty, condition, nodes, factDictionary, determiner)
   }
 
   private def validateFgCollection(path: String, factDictionary: FactDictionary): Unit = {

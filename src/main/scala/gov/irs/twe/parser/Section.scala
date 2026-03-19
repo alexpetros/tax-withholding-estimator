@@ -13,7 +13,7 @@ enum SectionNode {
   case rawHTML(node: xml.Node)
 }
 
-case class Section(nodes: List[SectionNode], factDictionary: FactDictionary, pageRoute: String) {
+case class Section(nodes: List[SectionNode], factDictionary: FactDictionary) {
   def html(templateEngine: TweTemplateEngine): String = {
     val sectionHtml = this.nodes
       .map {
@@ -36,10 +36,10 @@ case class Section(nodes: List[SectionNode], factDictionary: FactDictionary, pag
       // Process children and reconstruct the node
       val processedChildren = (node \ "_").map { child =>
         child.label match {
-          case "fg-collection"   => SectionNode.fgCollection(FgCollection.parse(child, this.pageRoute, factDictionary))
-          case "fg-set"          => SectionNode.fgSet(FgSet.parse(child, factDictionary))
-          case "fg-section-gate" => SectionNode.fgSectionGate(FgSectionGate.parse(child))
-          case "fg-detail"       => SectionNode.fgDetail(FgDetail.parse(child, this.pageRoute, factDictionary))
+          case "fg-collection"              => SectionNode.fgCollection(FgCollection.parse(child, factDictionary))
+          case "fg-set"                     => SectionNode.fgSet(FgSet.parse(child, factDictionary))
+          case "fg-section-gate"            => SectionNode.fgSectionGate(FgSectionGate.parse(child))
+          case "fg-detail"                  => SectionNode.fgDetail(FgDetail.parse(child, factDictionary))
           case "fg-withholding-adjustments" =>
             SectionNode.fgWithholdingAdjustments(FgWithholdingAdjustments.parse(child, factDictionary))
           case _ => SectionNode.rawHTML(child)
@@ -75,21 +75,21 @@ case class Section(nodes: List[SectionNode], factDictionary: FactDictionary, pag
 }
 
 object Section {
-  def parse(section: xml.Node, pageRoute: String, factDictionary: FactDictionary): Section = {
+  def parse(section: xml.Node, factDictionary: FactDictionary): Section = {
     val nodes = (section \ "_")
-      .map(node => processNode(node, pageRoute, factDictionary))
+      .map(node => processNode(node, factDictionary))
       .toList
 
-    Section(nodes, factDictionary, pageRoute)
+    Section(nodes, factDictionary)
   }
 
-  private[parser] def processNode(node: xml.Node, pageRoute: String, factDictionary: FactDictionary): SectionNode =
+  private[parser] def processNode(node: xml.Node, factDictionary: FactDictionary): SectionNode =
     node.label match {
-      case "fg-collection"              => SectionNode.fgCollection(FgCollection.parse(node, pageRoute, factDictionary))
+      case "fg-collection"              => SectionNode.fgCollection(FgCollection.parse(node, factDictionary))
       case "fg-set"                     => SectionNode.fgSet(FgSet.parse(node, factDictionary))
-      case "fg-alert"                   => SectionNode.fgAlert(FgAlert.parse(node, pageRoute, factDictionary))
+      case "fg-alert"                   => SectionNode.fgAlert(FgAlert.parse(node, factDictionary))
       case "fg-section-gate"            => SectionNode.fgSectionGate(FgSectionGate.parse(node))
-      case "fg-detail"                  => SectionNode.fgDetail(FgDetail.parse(node, pageRoute, factDictionary))
+      case "fg-detail"                  => SectionNode.fgDetail(FgDetail.parse(node, factDictionary))
       case "fg-withholding-adjustments" =>
         SectionNode.fgWithholdingAdjustments(FgWithholdingAdjustments.parse(node, factDictionary))
       case _ => SectionNode.rawHTML(node)

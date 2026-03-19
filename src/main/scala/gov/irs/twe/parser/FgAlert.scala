@@ -7,7 +7,6 @@ import org.thymeleaf.context.Context
 case class FgAlert(
     condition: Option[Condition],
     alertType: String,
-    pageRoute: String,
     heading: String,
     children: List[xml.Node],
 ) {
@@ -25,7 +24,7 @@ case class FgAlert(
 }
 
 object FgAlert {
-  def parse(node: xml.Node, pageRoute: String, factDictionary: FactDictionary): FgAlert = {
+  def parse(node: xml.Node, factDictionary: FactDictionary): FgAlert = {
     val alertType = node \@ "alert-type"
 
     val heading = (node \ "heading").head.child.mkString.trim
@@ -38,6 +37,6 @@ object FgAlert {
       Condition(conditionPath, ConditionOperator.fromAttribute(conditionOperator)),
     )
 
-    FgAlert(condition, alertType, pageRoute, heading, children)
+    FgAlert(condition, alertType, heading, children)
   }
 }
