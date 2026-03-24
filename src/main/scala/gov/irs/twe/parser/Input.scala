@@ -1,10 +1,8 @@
 package gov.irs.twe.parser
 
 import gov.irs.factgraph.FactDictionary
-import gov.irs.twe.{ Log, TweTemplateEngine }
 import gov.irs.twe.exceptions.InvalidFormConfig
-import org.thymeleaf.context.Context
-import scala.collection.JavaConverters.asJavaIterableConverter
+import gov.irs.twe.Log
 
 case class HtmlOption(name: String, value: String, description: Option[String] = None)
 

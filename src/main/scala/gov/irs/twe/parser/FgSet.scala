@@ -1,11 +1,11 @@
 package gov.irs.twe.parser
 
-import gov.irs.factgraph.{ FactDictionary, Path }
+import gov.irs.factgraph.Path
 import gov.irs.twe.exceptions.InvalidFormConfig
 import gov.irs.twe.parser.Utils.validateFact
 import gov.irs.twe.TweTemplateEngine
 import org.thymeleaf.context.Context
-import scala.collection.JavaConverters.asJavaIterableConverter
+import scala.jdk.CollectionConverters.IterableHasAsJava
 import scala.xml.Elem
 
 case class ThymeleafOption(name: String, value: String, description: String)
