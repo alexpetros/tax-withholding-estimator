@@ -6,6 +6,7 @@ import scala.xml.Elem
 
 enum FlowNodeType {
   case FG_ALERT
+  case FG_APPLY
   case FG_COLLECTION
   case FG_DETAIL
   case FG_SET
@@ -19,6 +20,7 @@ object FlowNodeType:
   def fromLabel(label: String): FlowNodeType = label match
     // Named elements with custom parsing logic
     case "fg-alert"                   => FlowNodeType.FG_ALERT
+    case "fg-apply"                   => FlowNodeType.FG_APPLY
     case "fg-collection"              => FlowNodeType.FG_COLLECTION
     case "fg-detail"                  => FlowNodeType.FG_DETAIL
     case "fg-set"                     => FlowNodeType.FG_SET
@@ -50,6 +52,7 @@ case class FlowParser(
 
   private def parseElement(element: Elem, level: Int = 0): FlowNode = FlowNodeType.fromLabel(element.label) match {
     case FlowNodeType.FG_ALERT                   => FgAlert.fromXml(element, this, level)
+    case FlowNodeType.FG_APPLY                   => FgApply.fromXml(element, this, level)
     case FlowNodeType.FG_COLLECTION              => FgCollection.fromXml(element, this, level)
     case FlowNodeType.FG_DETAIL                  => FgDetail.fromXml(element, this, level)
     case FlowNodeType.FG_SET                     => FgSet.fromXml(element, this, level)

@@ -648,6 +648,21 @@ class FgWithholdingAdjustments extends HTMLElement {
 customElements.define('fg-withholding-adjustments', FgWithholdingAdjustments)
 
 /*
+ * <fg-apply> - A self-closing tag that sets a fact
+ */
+class FgApply extends HTMLElement {
+  connectedCallback () {
+    const path = this.getAttribute('path')
+    const value = this.getAttribute('value')
+    console.debug(`Setting fact ${path} to ${value} from fg-apply`)
+    factGraph.set(path, value)
+    saveFactGraph()
+    document.dispatchEvent(new CustomEvent('fg-update'))
+  }
+}
+customElements.define('fg-apply', FgApply)
+
+/*
  * <fg-show> - Display the current value and/or status of a fact.
  */
 class FgShow extends HTMLElement {

@@ -4,7 +4,6 @@
   <page title="Results" route="/results">
     <section>
       <h2>Your withholding results</h2>
-
       <fg-alert alert-type="warning" alert-key="withholding-gap-incomplete" condition="/withholdingGap" operator="notHasValue">
         <heading>You still need to complete earlier steps</heading>
         <p class="usa-alert__text"> To use the estimator, you’ll have to go back and complete <a href="/app/tax-withholding-estimator/">Step 1: About You</a>
