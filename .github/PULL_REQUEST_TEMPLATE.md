@@ -1,4 +1,5 @@
-Resolves: <!-- Link the issue this PR addresses -->
+GitHub Issue (public contributors only):
+Jira Issue (IRS contributors only): [TXE-#####](https://jira.enterprise.irs.gov/browse/TXE-#####)
 
 ## Summary
 <!-- Provide a brief summary of the changes proposed in this Pull Request and the problem they address. -->
