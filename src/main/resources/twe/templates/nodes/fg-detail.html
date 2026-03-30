@@ -1,6 +1,6 @@
 <details
   class="fg-detail"
-  th:classappend="${useChevron}? 'fg-detail--chevron'"
+  th:classappend="(${useChevron} ? 'fg-detail--chevron': '') + (${detailsClass} ? ' ' + ${detailsClass} : '')"
   th:attr="condition=${condition}, operator=${operator}"
   th:open="${open}"
   >

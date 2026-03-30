@@ -11,6 +11,7 @@ case class FgDetail(
     summary: String,
     children: Seq[FlowNode],
     useChevron: Boolean,
+    detailsClass: Option[String],
     headingTag: String,
     open: Boolean,
     condition: Option[Condition],
@@ -21,6 +22,7 @@ case class FgDetail(
     val childrenHtml = children.html(templateEngine)
     context.setVariable("childrenHtml", childrenHtml)
     context.setVariable("useChevron", java.lang.Boolean.valueOf(useChevron))
+    context.setVariable("detailsClass", detailsClass.orNull)
     context.setVariable("headingTag", headingTag)
     context.setVariable("open", java.lang.Boolean.valueOf(open))
     context.setVariable("condition", condition.map(_.path).orNull)
@@ -41,11 +43,13 @@ object FgDetail extends FlowNodeParser {
 
     val childrenHtml = flowNodeParser.parseChildElements(fgDetailElement, List("summary"), level)
     val useChevron = (fgDetailElement \@ "icon") == "chevron"
+    val classAttribute = (fgDetailElement \@ "class").trim
+    val detailsClass = if (classAttribute.nonEmpty) Some(classAttribute) else None
     val rawHeadingTag = (fgDetailElement \@ "heading-tag").trim.toLowerCase
     val headingTag = if (VALID_HEADING_TAGS.contains(rawHeadingTag)) rawHeadingTag else "h4"
     val open = (fgDetailElement \@ "open").trim.equalsIgnoreCase("true")
     val condition = Condition.getCondition(fgDetailElement, flowNodeParser.factDictionary)
 
-    FgDetail(summary, childrenHtml, useChevron, headingTag, open, condition)
+    FgDetail(summary, childrenHtml, useChevron, detailsClass, headingTag, open, condition)
   }
 }
