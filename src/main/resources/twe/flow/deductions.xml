@@ -5,24 +5,19 @@
     <section>
       <h2>Standard deduction or itemized deductions</h2>
       <p>When you file your taxes, you can reduce your taxable income by choosing either the <modal-link for="modal-standard-deduction-or-itemize-deductions">standard deduction or itemized deductions</modal-link>.</p>
-      <p>
-        Most people take the standard deduction because the amount is higher than what they’d get by itemizing.
-      </p>
+      <p>Most people take the standard deduction because the amount is higher than what they’d get by itemizing.</p>
       <p>If you choose to itemize deductions, we'll ask you about your expenses and calculate the total amount for you.</p>
       <div condition="/isFilingStatusMFS" operator="isTrue" class="usa-alert usa-alert--info">
         <div class="usa-alert__body">
-          <p class="usa-alert__text">
-            If your filing status is Married Filing Separately, you’re required to take the standard deduction if your spouse does.
-            If your spouse itemizes their deductions, you’re required to itemize your deductions, too.
-          </p>
+          <p class="usa-alert__text">If your filing status is Married Filing Separately, you’re required to take the standard deduction if your spouse does. If your spouse itemizes their deductions, you’re required to itemize your deductions, too.</p>
         </div>
       </div>
-      <p condition="/additionalStandardDeductionItems" operator="isGreaterThanZero"><modal-link for="modal-standard-deduction-amount">Based on your answers</modal-link>, your standard deduction amount is <fg-show path="/standardDeduction" />.</p>
-      <p condition="/additionalStandardDeductionItems" operator="isZero">Based on your answers, your standard deduction amount is <fg-show path="/standardDeduction" />.</p>
+      <p condition="/additionalStandardDeductionItems" operator="isGreaterThanZero"><modal-link for="modal-standard-deduction-amount">Based on your answers</modal-link>, your standard deduction amount is <fg-show path="/standardDeduction"/>.</p>
+      <p condition="/additionalStandardDeductionItems" operator="isZero">Based on your answers, your standard deduction amount is <fg-show path="/standardDeduction"/>.</p>
       <fg-set path="/wantsStandardDeduction">
         <question>Choose if you want to take the standard deduction or itemize your deductions.</question>
         <input type="boolean">
-          <option value="true">Use the standard deduction (<fg-show path="/standardDeduction" />)</option>
+          <option value="true">Use the standard deduction (<fg-show path="/standardDeduction"/>)</option>
           <option value="false">Itemize deductions</option>
         </input>
       </fg-set>
@@ -37,8 +32,7 @@
       <p condition="/wantsItemizedDeduction" operator="isTrue">Estimate the amount for deductions you plan to take this year.</p>
       <h4 condition="/wantsItemizedDeduction" operator="isTrue">State and local taxes</h4>
       <div condition="/wantsItemizedDeduction" operator="isTrue">
-        <p>If you <span condition="/isFilingStatusMFJ" operator="isTrue">and your spouse</span> pay state and local
-          taxes, you can deduct up to <fg-show path="/stateAndLocalTaxDeductionLimit"/>.</p>
+        <p>If you <span condition="/isFilingStatusMFJ" operator="isTrue">and your spouse</span> pay state and local taxes, you can deduct up to <fg-show path="/stateAndLocalTaxDeductionLimit"/>.</p>
         <p>You can deduct:</p>
         <ul>
           <li>State and local real estate taxes</li>
@@ -49,7 +43,9 @@
           <li>State and local income taxes</li>
           <li>State and local general sales taxes</li>
         </ul>
-        <p><a target="_blank" href="https://www.irs.gov/taxtopics/tc503" class="usa-link">Learn more about state and local taxes.</a></p>
+        <p>
+          <a target="_blank" href="https://www.irs.gov/taxtopics/tc503" class="usa-link">Learn more about state and local taxes.</a>
+        </p>
       </div>
       <fg-set path="/stateAndLocalTaxPayments" if-true="/wantsItemizedDeduction">
         <question>State and local taxes you <span condition="/isFilingStatusMFJ" operator="isTrue">and your spouse</span> expect to pay in <fg-show path="/taxYear"/></question>
@@ -59,7 +55,9 @@
       <h4 condition="/wantsItemizedDeduction" operator="isTrue">Gifts to charity</h4>
       <div condition="/wantsItemizedDeduction" operator="isTrue">
         <p>If you <span condition="/isFilingStatusMFJ" operator="isTrue">or your spouse</span> donate to a qualifying organization, you can deduct those donations.</p>
-        <p><a target="_blank" href="https://www.irs.gov/charities-non-profits/charitable-organizations/" class="usa-link">Learn more about gifts to charity.</a></p>
+        <p>
+          <a target="_blank" href="https://www.irs.gov/charities-non-profits/charitable-organizations/" class="usa-link">Learn more about gifts to charity.</a>
+        </p>
       </div>
       <fg-set path="/cashCharitableContributions" if-true="/wantsItemizedDeduction">
         <question>Gifts to charity you <span condition="/isFilingStatusMFJ" operator="isTrue">and your spouse</span> expect to make in <fg-show path="/taxYear"/></question>
@@ -76,7 +74,7 @@
         <question>Qualified interest you <span condition="/isFilingStatusMFJ" operator="isTrue">and your spouse</span> expect to pay in <fg-show path="/taxYear"/></question>
         <input type="dollar"/>
       </fg-set>
-            <h4 condition="/wantsItemizedDeduction" operator="isTrue">Mortgage insurance premiums</h4>
+      <h4 condition="/wantsItemizedDeduction" operator="isTrue">Mortgage insurance premiums</h4>
       <div condition="/wantsItemizedDeduction" operator="isTrue">
         <p>If you <span condition="/isFilingStatusMFJ" operator="isTrue">and your spouse</span> will pay a premium for mortgage insurance in <fg-show path="/taxYear"/>, you may be able to deduct it. Your mortgage insurance contract must have been issued in 2007 or later for your main or second home.</p>
         <p>Qualified mortgage insurance includes:</p>
@@ -93,8 +91,10 @@
       </fg-set>
       <h4 condition="/wantsItemizedDeduction" operator="isTrue">Medical and dental expenses deduction</h4>
       <div condition="/wantsItemizedDeduction" operator="isTrue">
-        <p>If you <span condition="/isFilingStatusMFJ" operator="isTrue">or your spouse</span> pay out-of-pocket (not reimbursed by insurance) for medical and dental expenses or premiums, you can deduct the amount of your total expenses over <fg-show path="/medicalAndDentalExpensesFloor" />.</p>
-        <p><a target="_blank" href="https://www.irs.gov/taxtopics/tc502" class="usa-link">Learn more about medical and dental expenses.</a></p>
+        <p>If you <span condition="/isFilingStatusMFJ" operator="isTrue">or your spouse</span> pay out-of-pocket (not reimbursed by insurance) for medical and dental expenses or premiums, you can deduct the amount of your total expenses over <fg-show path="/medicalAndDentalExpensesFloor"/>.</p>
+        <p>
+          <a target="_blank" href="https://www.irs.gov/taxtopics/tc502" class="usa-link">Learn more about medical and dental expenses.</a>
+        </p>
       </div>
       <fg-set path="/medicalAndDentalExpenses" if-true="/wantsItemizedDeduction">
         <question>Medical and dental expenses you <span condition="/isFilingStatusMFJ" operator="isTrue">and your spouse</span> expect to pay in <fg-show path="/taxYear"/></question>
@@ -106,7 +106,9 @@
         <p>If you <span condition="/isFilingStatusMFJ" operator="isTrue">and your spouse</span> experience any casualty, disaster, or theft losses due to a state or federally declared disaster, you can deduct those losses.</p>
         <p>You can also deduct losses due to theft related to a transaction entered into for profit.</p>
         <p>The losses must not be covered by insurance.</p>
-        <p><a target="_blank" href="https://www.irs.gov/taxtopics/tc515" class="usa-link">Learn more about casualty losses.</a></p>
+        <p>
+          <a target="_blank" href="https://www.irs.gov/taxtopics/tc515" class="usa-link">Learn more about casualty losses.</a>
+        </p>
       </div>
       <fg-set path="/casualtyLossesTotal" if-true="/wantsItemizedDeduction">
         <question>Estimated casualty losses in <fg-show path="/taxYear"/></question>
@@ -129,10 +131,12 @@
           <li>Unrecovered investment in an annuity</li>
           <li>An ordinary loss attributable to a contingent payment debt instrument or an inflation-indexed debt instrument (for example, a Treasury Inflation-Protected Security)</li>
         </ul>
-        <p><a target="_blank" href="https://www.irs.gov/publications/p529" class="usa-link">Learn more about other deductions.</a></p>
+        <p>
+          <a target="_blank" href="https://www.irs.gov/publications/p529" class="usa-link">Learn more about other deductions.</a>
+        </p>
       </div>
       <fg-set path="/otherDeductionsTotal" if-true="/wantsItemizedDeduction">
-        <question>Estimated other deductions in <fg-show path="/taxYear" /></question>
+        <question>Estimated other deductions in <fg-show path="/taxYear"/></question>
         <input type="dollar"/>
       </fg-set>
       <h4 condition="/wantsItemizedDeduction" operator="isTrue">Itemized deductions total: <fg-show path="/itemizedDeductionTotal"/></h4>
@@ -160,24 +164,16 @@
         <p condition="/onlyPrimaryFilerIsClaimedOnAnotherReturn" operator="isTrue">Your standard deduction is limited because you can be claimed as a dependent by another taxpayer.</p>
         <p condition="/onlySecondaryFilerIsClaimedOnAnotherReturn" operator="isTrue">Your standard deduction is limited because your spouse can be claimed as a dependent by another taxpayer.</p>
         <p condition="/primaryAndSecondaryFilersAreClaimedOnAnotherReturn" operator="isTrue">Your standard deduction is limited because you and your spouse can be claimed as dependents by another taxpayer.</p>
-        <p condition="/treatFilersAsDependents" operator="isTrue">It's calculated as the greater of <fg-show path="/tentativeMinimumStandardDeduction" /> or your earned income plus <fg-show path="/earnedIncomeBump" /> (but can't be higher than <fg-show path="/filingStatusStandardDeduction" />)</p>
+        <p condition="/treatFilersAsDependents" operator="isTrue">It's calculated as the greater of <fg-show path="/tentativeMinimumStandardDeduction"/> or your earned income plus <fg-show path="/earnedIncomeBump"/> (but can't be higher than <fg-show path="/filingStatusStandardDeduction"/>)</p>
         <p condition="/treatFilersAsDependents" operator="isTrue">On top of that amount, you get an additional amount because:</p>
-        <p condition="/treatFilersAsDependents" operator="isFalse">
-          Your standard deduction is based on
-          <span condition="/isFilingStatusMFJ" operator="isTrue">married filing jointly</span>
-          <span condition="/isFilingStatusMFS" operator="isTrue">married filing separately</span>
-          <span condition="/isFilingStatusSingle" operator="isTrue">single</span>
-          <span condition="/isFilingStatusHOH" operator="isTrue">head of household</span>
-          <span condition="/isFilingStatusQSS" operator="isTrue">qualified surviving spouse</span>
-          filing status plus an additional amount because:
-        </p>
+        <p condition="/treatFilersAsDependents" operator="isFalse">Your standard deduction is based on <span condition="/isFilingStatusMFJ" operator="isTrue">married filing jointly</span><span condition="/isFilingStatusMFS" operator="isTrue">married filing separately</span><span condition="/isFilingStatusSingle" operator="isTrue">single</span><span condition="/isFilingStatusHOH" operator="isTrue">head of household</span><span condition="/isFilingStatusQSS" operator="isTrue">qualified surviving spouse</span> filing status plus an additional amount because:</p>
         <ul condition="/additionalStandardDeductionItems" operator="isGreaterThanZero">
           <li condition="/onlyPrimaryFilerAge65OrOlder" operator="isTrue">You will be 65 or older at the end of the year</li>
           <li condition="/onlySecondaryFilerAge65OrOlder" operator="isTrue">Your spouse will be 65 or older at the end of the year</li>
           <li condition="/primaryAndSecondaryFilersAge65OrOlder" operator="isTrue">You and your spouse will be 65 or older at the end of the year</li>
-          <li condition="/onlyPrimaryFilerIsBlind" operator="isTrue">You are blind </li>
-          <li condition="/onlySecondaryFilerIsBlind" operator="isTrue">Your spouse is blind </li>
-          <li condition="/primaryAndSecondaryFilersAreBlind" operator="isTrue">You and your spouse are blind </li>
+          <li condition="/onlyPrimaryFilerIsBlind" operator="isTrue">You are blind</li>
+          <li condition="/onlySecondaryFilerIsBlind" operator="isTrue">Your spouse is blind</li>
+          <li condition="/primaryAndSecondaryFilersAreBlind" operator="isTrue">You and your spouse are blind</li>
         </ul>
         <p>
           <a target="_blank" href="https://www.irs.gov/publications/p501#en_US_2024_publink1000221051" class="usa-link">Learn more about the standard deduction.<span class="usa-sr-only"> (opens in a new tab)</span></a>

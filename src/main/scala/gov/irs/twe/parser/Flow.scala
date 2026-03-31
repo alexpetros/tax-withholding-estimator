@@ -2,6 +2,7 @@ package gov.irs.twe.parser
 
 import gov.irs.factgraph.FactDictionary
 import gov.irs.twe.exceptions.InvalidFormConfig
+import gov.irs.twe.generateFlowLocaleFile
 import gov.irs.twe.Log
 import scala.xml.Elem
 
@@ -22,6 +23,8 @@ object Flow {
       Page.fromXml(pageElement, flowParser)
     }.toList
     Log.info(s"Generated flow with ${pages.length} pages")
+
+    generateFlowLocaleFile(flowParser.translationMap)
 
     Flow(pages)
   }

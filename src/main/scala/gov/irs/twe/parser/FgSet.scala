@@ -5,18 +5,17 @@ import gov.irs.twe.exceptions.InvalidFormConfig
 import gov.irs.twe.parser.Utils.validateFact
 import gov.irs.twe.TweTemplateEngine
 import org.thymeleaf.context.Context
+import scala.collection.mutable
 import scala.jdk.CollectionConverters.IterableHasAsJava
 import scala.xml.Elem
 
 case class ThymeleafOption(name: String, value: String, description: String)
 case class FgSet(
     path: String,
-    question: String,
     condition: Option[Condition],
     input: Input,
-    hint: Option[String],
     optional: Boolean,
-    modalLink: Option[String],
+    contentKey: String,
 ) extends FlowNode {
   override def html(templateEngine: TweTemplateEngine): String = {
     val usesFieldset =
@@ -29,10 +28,6 @@ case class FgSet(
     context.setVariable("typeString", input.typeString)
     context.setVariable("optional", optional)
     context.setVariable("usesFieldset", usesFieldset)
-    context.setVariable("hint", hint.orNull)
-    context.setVariable("modalLink", modalLink.orNull)
-
-    val contentKey = "fg-sets." + path
     context.setVariable("contentKey", contentKey)
 
     input match {
@@ -65,6 +60,12 @@ case class FgSet(
     templateEngine.process("nodes/fg-set", context)
   }
 }
+
+case class FgSetOption(
+    value: String,
+    name: String,
+    description: Option[String],
+)
 
 object FgSet extends FlowNodeParser {
   override def fromXml(fgSetElement: Elem, flowParser: FlowParser, level: Int): FgSet = {
@@ -113,6 +114,38 @@ object FgSet extends FlowNodeParser {
       Some(modalLinkNode.head.toString.trim)
     }
 
-    FgSet(path, question, condition, input, hint, isOptional, modalLink)
+    val options = (fgSetElement \\ "option").map { option =>
+      val value = option \@ "value"
+      val name = option.head.child.mkString.trim
+      val description = option \@ "description-key"
+      val descriptionValue = Option(description).filter(_.nonEmpty)
+      FgSetOption(value, name, descriptionValue)
+    }
+
+    val parentContext = flowParser.translationContext
+    val mapAtParentLevel = flowParser.translationMap.getMap(parentContext)
+    mapAtParentLevel += path -> mutable.LinkedHashMap.empty[String, Any]
+    val currentMapLevel = mapAtParentLevel.getMap(List(path))
+    currentMapLevel += "question" -> question
+    if (hint.nonEmpty) {
+      currentMapLevel += "hint" -> hint.get
+    }
+    if (modalLink.nonEmpty) {
+      currentMapLevel += "modalLink" -> modalLink.get
+    }
+
+    if (options.nonEmpty) {
+      currentMapLevel += "options" -> mutable.LinkedHashMap.empty[String, Any]
+      val optionsMap = currentMapLevel.getMap(List("options"))
+      options.foreach(option => {
+        optionsMap += option.value -> mutable.LinkedHashMap.empty[String, Any]
+        val specificOption = optionsMap.getMap(List(option.value))
+        specificOption += "name" -> option.name
+        if (option.description.isDefined) specificOption += "description" -> option.description.get
+      })
+    }
+    val currentTranslationPath = s"${parentContext.mkString(".")}.$path"
+
+    FgSet(path, condition, input, isOptional, currentTranslationPath)
   }
 }

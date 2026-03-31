@@ -295,11 +295,34 @@
 
   <define name="fg-detail-module">
     <element name="fg-detail">
-      <optional><attribute name="icon"><text/></attribute></optional>
-      <optional><attribute name="heading-tag"><text/></attribute></optional>
-      <optional><attribute name="open"><text/></attribute></optional>
-      <optional><attribute name="condition"><data type="anyURI"/></attribute></optional>
-      <optional><attribute name="operator"><choice><value>isTrue</value><value>isFalse</value></choice></attribute></optional>
+      <optional>
+        <attribute name="icon">
+          <text/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="heading-tag">
+          <text/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="open">
+          <text/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="condition">
+          <data type="anyURI"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="operator">
+          <choice>
+            <value>isTrue</value>
+            <value>isFalse</value>
+          </choice>
+        </attribute>
+      </optional>
       <element name="summary">
         <ref name="FlowConfigModuleInlineContent"/>
       </element>
@@ -338,9 +361,6 @@
 
   <define name="fg-alert-module">
     <element name="fg-alert">
-      <attribute name="alert-key">
-        <text/>
-      </attribute>
       <attribute name="alert-type">
         <choice>
           <value>info</value>

@@ -4,7 +4,8 @@
   <page title="Results" route="/results">
     <section>
       <h2>Your withholding results</h2>
-      <fg-alert alert-type="warning" alert-key="withholding-gap-incomplete" condition="/withholdingGap" operator="notHasValue">
+
+      <fg-alert alert-type="warning" condition="/withholdingGap" operator="notHasValue">
         <heading>You still need to complete earlier steps</heading>
         <p class="usa-alert__text"> To use the estimator, you’ll have to go back and complete <a href="/app/tax-withholding-estimator/">Step 1: About You</a>
         </p>
@@ -83,7 +84,9 @@
           <tbody>
             <tr>
               <th scope="row">Gross income</th>
-              <td><fg-show path="/grossIncomeTotal"/></td>
+              <td>
+                <fg-show path="/grossIncomeTotal"/>
+              </td>
             </tr>
             <tr>
               <th scope="row">Payroll deductions</th>
@@ -106,7 +109,9 @@
             </tr>
             <tr>
               <th scope="row">Taxable income</th>
-              <td><fg-show path="/taxableIncome"/></td>
+              <td>
+                <fg-show path="/taxableIncome"/>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -123,7 +128,9 @@
           <tbody>
             <tr>
               <th scope="row">Estimated <fg-show path="/taxYear"/> tax liability</th>
-              <td><fg-show path="/totalTaxObligationBeforeCreditsAndDeductions"/></td>
+              <td>
+                <fg-show path="/totalTaxObligationBeforeCreditsAndDeductions"/>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -156,8 +163,12 @@
                 <span condition="/isOverwithheld" operator="isTrue">Estimated <fg-show path="/taxYear"/> federal tax refund</span>
               </th>
               <td>
-                <span condition="/isOverwithheld" operator="isFalse"><fg-show path="/withholdingGap"/></span>
-                <span condition="/isOverwithheld" operator="isTrue"><fg-show path="/withholdingSurplus"/></span>
+                <span condition="/isOverwithheld" operator="isFalse">
+                  <fg-show path="/withholdingGap"/>
+                </span>
+                <span condition="/isOverwithheld" operator="isTrue">
+                  <fg-show path="/withholdingSurplus"/>
+                </span>
               </td>
             </tr>
           </tbody>
@@ -222,7 +233,9 @@
       <modal-content>
         <p>You need to submit a Form W-4 to each of your employers to help them withhold the right amount of taxes from your paychecks throughout the year.</p>
         <p>Withholding at the right rate ensures that you don’t withhold too much and get smaller paychecks, or withhold too little and end up owing a large amount, or even penalties, at the end of the year.</p>
-        <p><a target="_blank" class="usa-link" href="https://www.irs.gov/forms-pubs/about-form-w-4">Learn more about Form W-4.</a></p>
+        <p>
+          <a target="_blank" class="usa-link" href="https://www.irs.gov/forms-pubs/about-form-w-4">Learn more about Form W-4.</a>
+        </p>
       </modal-content>
     </modal-dialog>
     <modal-dialog id="modal-what-is-form-w-4p">
@@ -230,7 +243,9 @@
       <modal-content>
         <p>You need to submit a Form W-4P to your pension or annuity providers to help them withhold the right amount of taxes from your payments throughout the year.</p>
         <p>Withholding at the right rate ensures that you don’t withhold too much and get smaller payments, or withhold too little and end up owing a large amount, or even penalties, at the end of the year.</p>
-        <p><a target="_blank" class="usa-link" href="https://www.irs.gov/forms-pubs/about-form-w-4-p">Learn more about Form W-4P.</a></p>
+        <p>
+          <a target="_blank" class="usa-link" href="https://www.irs.gov/forms-pubs/about-form-w-4-p">Learn more about Form W-4P.</a>
+        </p>
       </modal-content>
     </modal-dialog>
     <modal-dialog id="modal-what-is-form-w-4-and-w-4p">
@@ -238,8 +253,12 @@
       <modal-content>
         <p>You need to submit a Form W-4 to each of your employers or a Form W-4P to your pension or annuity providers to help them withhold the right amount of taxes from your paycheck or pension payment throughout the year.</p>
         <p>Withholding at the right rate ensures that you don’t withhold too much and take home a smaller amount, or withhold too little and end up owing a large amount, or even penalties, at the end of the year.</p>
-        <p><a target="_blank" class="usa-link" href="https://www.irs.gov/forms-pubs/about-form-w-4">Learn more about Form W-4.</a></p>
-        <p><a target="_blank" class="usa-link" href="https://www.irs.gov/forms-pubs/about-form-w-4-p">Learn more about Form W-4P.</a></p>
+        <p>
+          <a target="_blank" class="usa-link" href="https://www.irs.gov/forms-pubs/about-form-w-4">Learn more about Form W-4.</a>
+        </p>
+        <p>
+          <a target="_blank" class="usa-link" href="https://www.irs.gov/forms-pubs/about-form-w-4-p">Learn more about Form W-4P.</a>
+        </p>
       </modal-content>
     </modal-dialog>
     <modal-dialog id="modal-why-step-1-c">

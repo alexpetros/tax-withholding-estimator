@@ -67,13 +67,13 @@ object Website {
     val excludedPageLength = flow.pages.length - navPages.size
 
     val pages = flow.pages.zipWithIndex.map { (page, index) =>
-      val title = s"Tax Withholding Estimator - ${page.title} | Internal Revenue Service"
-      val stepTitle = page.title
+      val titleValue = templateEngine.messageResolver.resolveMessage(page.titleKey)
+      val title = s"Tax Withholding Estimator - ${titleValue} | Internal Revenue Service"
 
       val context = new Context()
       context.setVariable("exclude", page.exclude)
       context.setVariable("title", title)
-      context.setVariable("stepTitle", stepTitle)
+      context.setVariable("stepTitle", titleValue)
       context.setVariable("stepIndex", (index - excludedPageLength) % flow.pages.length)
       context.setVariable("stepTotal", navPages.size)
       context.setVariable("pages", navPages.asJava) // th:each requires Java Iterables

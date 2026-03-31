@@ -5,7 +5,7 @@
         th:if="${iterStat.index < stepIndex}">
         <span class="usa-step-indicator__segment-label">
           <a class="usa-step-indicator__link" th:href="${page.href()}">
-            <span th:text="${page.title}"></span>
+            <span th:text="#{${page.titleKey}}"></span>
             <span class="usa-sr-only" th:text="#{step-indicator.completed}"></span>
           </a>
         </span>
@@ -14,14 +14,14 @@
         th:each="page, iterStat : ${pages}"
         th:if="${iterStat.index == stepIndex}">
         <span class="usa-step-indicator__segment-label">
-          <span aria-current="step" th:text="${page.title}"></span>
+          <span aria-current="step" th:text="#{${page.titleKey}}"></span>
         </span>
     </li>
     <li class="usa-step-indicator__segment"
         th:each="page, iterStat : ${pages}"
         th:if="${iterStat.index > stepIndex}">
         <span class="usa-step-indicator__segment-label">
-        <span th:text="${page.title}"></span>
+        <span th:text="#{${page.titleKey}}"></span>
         <span class="usa-sr-only" th:text="#{step-indicator.not-completed}"></span>
         </span>
       </li>

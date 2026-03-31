@@ -19,17 +19,23 @@ case class TweMessageResolver(locale: Locale) extends AbstractMessageResolver:
     s"!!${key}!!"
   }
 
-  def resolveMessage(
+  override def resolveMessage(
       context: ITemplateContext,
       origin: Class[?],
       key: String,
       messageParameters: Array[Object],
   ): String =
-    locale
-      .get(key)
-      .as[String]
-      .map(pattern => MessageFormat.format(pattern, messageParameters*))
-      .getOrElse(null)
+    val rawMsg = locale.get(key).as[String].getOrElse(null)
+    if (messageParameters != null && messageParameters.nonEmpty) {
+      // MessageFormat.format makes it so ' are removed we would need to use '' if we want one to be displayed
+      MessageFormat.format(rawMsg, messageParameters*)
+    } else {
+      rawMsg
+    }
+
+  /** Custom convenience overload for contractually obligated resolveMessage override
+    */
+  def resolveMessage(key: String): String = resolveMessage(null, null, key, null)
 
 class TweTemplateEngine {
   private val resolver = new ClassLoaderTemplateResolver()
@@ -40,7 +46,7 @@ class TweTemplateEngine {
 
   private val locale = Locale("en")
   private val templateEngine = new TemplateEngine()
-  private val messageResolver = TweMessageResolver(locale)
+  val messageResolver = TweMessageResolver(locale)
   templateEngine.setTemplateResolver(resolver)
   templateEngine.addMessageResolver(messageResolver)
 

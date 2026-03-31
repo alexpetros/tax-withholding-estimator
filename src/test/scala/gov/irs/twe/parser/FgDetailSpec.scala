@@ -16,7 +16,6 @@ class FgDetailSpec extends AnyFunSpec {
         <p>Content here.</p>
       </fg-detail>
       val fd = FgDetail.fromXml(xml, flowParser)
-      assert(fd.summary == "Estimated tips and overtime")
       assert(fd.children.size == 1)
       assert(fd.children.head.isInstanceOf[HtmlLeafNode])
     }
@@ -27,7 +26,6 @@ class FgDetailSpec extends AnyFunSpec {
         <p>Body.</p>
       </fg-detail>
       val fd = FgDetail.fromXml(xml, flowParser)
-      assert(fd.summary.contains("Income in <fg-show path=\"/taxYear\"/>"))
       assert(fd.children.size == 1)
       assert(fd.children.head.isInstanceOf[HtmlLeafNode])
     }

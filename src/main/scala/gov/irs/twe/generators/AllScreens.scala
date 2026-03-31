@@ -37,7 +37,7 @@ object AllScreens {
     val pages = flow.pages.map(page =>
       Map(
         "route" -> page.route,
-        "title" -> page.title,
+        "title" -> templateEngine.messageResolver.resolveMessage(page.titleKey),
         "content" -> page.html(templateEngine),
       ).asJava,
     )

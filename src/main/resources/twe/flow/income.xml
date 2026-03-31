@@ -14,7 +14,7 @@
       </div>
 
       <h3>Jobs with an employer (W-2)</h3>
-      <fg-alert alert-type="error" alert-key="at-least-one-job" condition="/declaredDoneAddingIncome" operator="isTrue">
+      <fg-alert alert-type="error" condition="/declaredDoneAddingIncome" operator="isTrue">
         <heading>You need to have a job or pension to continue</heading>
         <p class="usa-alert__text"> To continue using the estimator, you need to have at least one job or pension that regularly withholds federal income taxes. If you don’t pay any taxes on your income through withholding, you may want to plan to <a target="_blank" href="https://www.irs.gov/businesses/small-businesses-self-employed/estimated-taxes" class="usa-link">pay estimated taxes.<span class="usa-sr-only"> (opens in a new tab)</span></a>
         </p>
@@ -179,9 +179,11 @@
               Tips are voluntary cash or credit card payments received from customers or through
               tip‑sharing arrangements.
             </p>
-            <p><a
-              target="_blank"
-              href="https://www.irs.gov/newsroom/one-big-beautiful-bill-act-tax-deductions-for-working-americans-and-seniors">Learn more about the no tax on tips deduction.</a></p>
+            <p>
+              <a
+                target="_blank"
+                href="https://www.irs.gov/newsroom/one-big-beautiful-bill-act-tax-deductions-for-working-americans-and-seniors">Learn more about the no tax on tips deduction.</a>
+            </p>
             <p>To be eligible for the no tax on tips deduction, <span condition="/jobs/*/isFilerAssignmentSelf" operator="isFalse">your spouse</span>
               <span condition="/jobs/*/isFilerAssignmentSelf" operator="isTrue">you</span> must have an <a
                 target="_blank"
@@ -200,7 +202,8 @@
             <p>
               <a
                 target="_blank"
-                href="https://www.irs.gov/newsroom/one-big-beautiful-bill-act-tax-deductions-for-working-americans-and-seniors">Learn more about the no tax on overtime deduction</a></p>
+                href="https://www.irs.gov/newsroom/one-big-beautiful-bill-act-tax-deductions-for-working-americans-and-seniors">Learn more about the no tax on overtime deduction</a>
+            </p>
             <fg-set path="/jobs/*/overtimeCompensationTotal">
               <question>Total estimated overtime pay for <fg-show path="/taxYear"/></question>
               <hint>Leave this blank if <span condition="/jobs/*/isFilerAssignmentSelf" operator="isFalse">your spouse doesn’t</span><span condition="/jobs/*/isFilerAssignmentSelf" operator="isTrue">you don’t</span> have a Social Security number.</hint>
@@ -815,8 +818,7 @@
       <modal-content>
         <p>A job is when you earn income by working for an employer. At the end of the year, the employer will send a Form W-2 to report this income.</p>
         <p>
-          <strong>Don’t include</strong> income earned through:
-        </p>
+          <strong>Don’t include</strong> income earned through:</p>
         <ul>
           <li>A partnership, trade, or business that you own</li>
           <li>On-demand work, services, or goods as a freelancer, contractor, or gig worker</li>

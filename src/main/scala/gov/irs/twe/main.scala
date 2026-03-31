@@ -12,10 +12,6 @@ import scala.xml.NodeBuffer
 val FlowResourceRoot = "twe/flow"
 val flagRegex = new Regex("""--(\w*)""")
 
-case class OptionContent(name: String, description: Option[String])
-case class FgSetContent(question: String, options: Option[Map[String, OptionContent]])
-case class FgAlertContent(heading: String, body: Map[String, String])
-
 @main def main(args: String*): Unit = {
   val flags = Map.from(
     args.map {
@@ -40,7 +36,6 @@ case class FgAlertContent(heading: String, body: Map[String, String])
   )
 
   val resolvedConfig = <FlowConfig>{resolvedChildren}</FlowConfig>
-  generateFlowLocalFile(resolvedConfig)
 
   val tweFactDictionary = loadTweFactDictionary()
   val flow = Flow.fromXmlConfig(resolvedConfig, tweFactDictionary.factDictionary)

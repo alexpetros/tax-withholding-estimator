@@ -3,11 +3,12 @@ package gov.irs.twe.parser
 import gov.irs.twe.exceptions.InvalidFormConfig
 import gov.irs.twe.parser.Utils.optionString
 import gov.irs.twe.TweTemplateEngine
+import scala.collection.mutable
 import scala.util.matching.Regex
 import scala.xml.Elem
 
 case class Page(
-    title: String,
+    titleKey: String,
     route: String,
     exclude: Boolean,
     children: Seq[FlowNode],
@@ -35,8 +36,13 @@ object Page extends FlowNodeParser {
       optionString(page \@ "title").getOrElse(throw InvalidFormConfig("<page> is missing a title attribute"))
     val exclude = (page \@ "exclude-from-stepper").toBooleanOption.getOrElse(false)
 
-    val children = flowParser.parseChildElements(page)
+    flowParser.translationContext = List(route)
+    flowParser.translationMap += route -> mutable.LinkedHashMap.empty[String, Any]
+    val mapToBeUpdated = flowParser.translationMap.getMap(List(route))
+    mapToBeUpdated += "title" -> title
 
-    Page(title, route, exclude, children)
+    val titleKey = flowParser.translationContext.mkString(".") + ".title"
+    val children = flowParser.parseChildElements(page)
+    Page(titleKey, route, exclude, children)
   }
 }

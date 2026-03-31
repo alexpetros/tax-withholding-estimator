@@ -7,7 +7,7 @@
       <p>Tell us about yourself. Your responses will help us learn which tax benefits you could be eligible for, which can impact how much tax you withhold.</p>
 
       <fg-set path="/primaryFilerAge65OrOlder">
-        <question>Will you be 65 years old or older on January 1, <fg-show path="/nextTaxYear" />?</question>
+        <question>Will you be 65 years old or older on January 1, <fg-show path="/nextTaxYear"/>?</question>
         <input type="boolean"/>
       </fg-set>
       <fg-set path="/primaryFilerIsBlind">
@@ -72,7 +72,9 @@
           <li>Relatives or members of your household who get more than half of their financial support from you and who have a gross income under $5,050</li>
         </ul>
         <p>You can’t claim your spouse as a dependent if you file jointly.</p>
-        <p><a target="_blank" class="usa-link" href="https://www.irs.gov/credits-deductions/individuals/dependents">Learn more about dependents.</a></p>
+        <p>
+          <a target="_blank" class="usa-link" href="https://www.irs.gov/credits-deductions/individuals/dependents">Learn more about dependents.</a>
+        </p>
       </modal-content>
     </modal-dialog>
     <modal-dialog id="modal-primary-claimed-as-dependent">

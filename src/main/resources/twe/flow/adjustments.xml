@@ -114,11 +114,9 @@
       <p>You can deduct unreimbursed moving expenses paid in <fg-show path="/taxYear"/> if:</p>
       <ul>
         <li>
-          <span condition="/isFilingStatusMFJ" operator="isFalse">You're</span><span condition="/isFilingStatusMFJ" operator="isTrue">You or your spouse are</span> a member of the Armed Forces on active duty and your move was due to a military order and a permanent change of station, or
-        </li>
+          <span condition="/isFilingStatusMFJ" operator="isFalse">You're</span><span condition="/isFilingStatusMFJ" operator="isTrue">You or your spouse are</span> a member of the Armed Forces on active duty and your move was due to a military order and a permanent change of station, or</li>
         <li>
-          <span condition="/isFilingStatusMFJ" operator="isFalse">You're</span><span condition="/isFilingStatusMFJ" operator="isTrue">You or your spouse are</span> an employee or new appointee of the intelligence community and your move was due to a change in assignment which required relocation
-        </li>
+          <span condition="/isFilingStatusMFJ" operator="isFalse">You're</span><span condition="/isFilingStatusMFJ" operator="isTrue">You or your spouse are</span> an employee or new appointee of the intelligence community and your move was due to a change in assignment which required relocation</li>
       </ul>
       <p>
         <a target="_blank" href="https://www.irs.gov/taxtopics/tc455" class="usa-link">Learn more about military and intelligence community moving expenses.<span class="usa-sr-only"> (opens in a new tab)</span></a>
