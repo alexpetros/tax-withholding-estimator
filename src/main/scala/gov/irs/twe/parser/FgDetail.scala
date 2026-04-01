@@ -70,6 +70,6 @@ object FgDetail extends FlowNodeParserWithCounts {
     val childrenHtml = flowNodeParser.parseChildElements(fgDetailElement, List("summary"), level)
     flowNodeParser.translationContext = flowNodeParser.translationContext.dropRight(1)
 
-    FgDetail(summary, childrenHtml, useChevron, detailsClass, headingTag, open, condition)
+    FgDetail(summaryKey, childrenHtml, useChevron, detailsClass, headingTag, open, condition)
   }
 }
