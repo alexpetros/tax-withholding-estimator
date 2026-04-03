@@ -1015,19 +1015,19 @@
     <modal-dialog id="modal-what-are-dividends-en">
       <modal-heading>What are dividends and how can I estimate them?</modal-heading>
       <modal-content>
-        <p>Ordinary or qualified dividends are payments made by corporations to shareholders based on a company's profits. The main difference between the two is that qualified dividends are taxed at a lower rate.</p>
+        <p>Ordinary or qualified dividends are payments made by corporations to shareholders based on a company’s profits. The main difference between the two is that qualified dividends are taxed at a lower rate.</p>
         <p>
           <strong>How to estimate dividends</strong>
         </p>
-        <p>Dividends are often paid out quarterly. To estimate your dividends, look at your financial statements to see how much you've earned in dividends so far this year. Multiply your average quarterly dividend by four (or a different number if not quarterly) to get an estimate for the year.</p>
-        <p>When estimating dividends, it's better to guess a higher amount. If you underestimate, it can lead to not withholding enough federal tax throughout the year.</p>
+        <p>Dividends are often paid out quarterly. To estimate your dividends, look at your financial statements to see how much you’ve earned in dividends so far this year. Multiply your average quarterly dividend by four (or a different number if not quarterly) to get an estimate for the year.</p>
+        <p>When estimating dividends, it’s better to guess a higher amount. If you underestimate, it can lead to not withholding enough federal tax throughout the year.</p>
         <p>
-          <strong>How to check last year's tax return</strong>
+          <strong>How to check last year’s tax return</strong>
         </p>
-        <p>If you earned these dividends last year and think you'll earn a similar amount this year, check:</p>
+        <p>If you think you’ll get the same dividends this year, use last year’s amounts as your estimate. Check Form 1040 from your <fg-show path="/lastTaxYear"/> federal tax return:</p>
         <ul>
-          <li>Line 3b on Form 1040 of your <fg-show path="/lastTaxYear"/> federal tax return for ordinary dividends</li>
-          <li>Line 3a on Form 1040 of your <fg-show path="/lastTaxYear"/> federal tax return for qualified dividends</li>
+          <li>Line 3b minus line 3a for ordinary dividends</li>
+          <li>Line 3a for qualified dividends</li>
         </ul>
       </modal-content>
     </modal-dialog>
