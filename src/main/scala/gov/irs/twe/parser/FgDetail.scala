@@ -45,15 +45,15 @@ object FgDetail extends FlowNodeParserWithCounts {
       tagCounts: mutable.Map[Int, mutable.Map[String, Int]] = mutable.Map.empty,
   ): FgDetail = {
     val summary = (fgDetailElement \ "summary").headOption match {
-      case Some(summaryNode) => summaryNode.child.map(_.toString).mkString.trim
+      case Some(summaryNode) => summaryNode.child.map(_.toString).mkString.strip
       case None              => ""
     }
     val useChevron = (fgDetailElement \@ "icon") == "chevron"
-    val classAttribute = (fgDetailElement \@ "class").trim
+    val classAttribute = (fgDetailElement \@ "class").strip
     val detailsClass = if (classAttribute.nonEmpty) Some(classAttribute) else None
-    val rawHeadingTag = (fgDetailElement \@ "heading-tag").trim.toLowerCase
+    val rawHeadingTag = (fgDetailElement \@ "heading-tag").strip.toLowerCase
     val headingTag = if (VALID_HEADING_TAGS.contains(rawHeadingTag)) rawHeadingTag else "h4"
-    val open = (fgDetailElement \@ "open").trim.equalsIgnoreCase("true")
+    val open = (fgDetailElement \@ "open").strip.equalsIgnoreCase("true")
     val condition = Condition.getCondition(fgDetailElement, flowNodeParser.factDictionary)
 
     val fgDetailWithCount = getAndUpdateTagCounts(tagCounts, fgDetailElement, level)

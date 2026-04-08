@@ -36,7 +36,7 @@ object FgAlert extends FlowNodeParserWithCounts {
   ): FgAlert = {
     val alertType = fgAlertElement \@ "alert-type"
 
-    val heading = (fgAlertElement \ "heading").head.child.mkString.trim
+    val heading = (fgAlertElement \ "heading").head.child.mkString.strip
 
     val conditionPath = fgAlertElement \@ "condition"
     val conditionOperator = fgAlertElement \@ "operator"

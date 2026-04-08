@@ -1,7 +1,7 @@
 <fg-collection
         th:attr="path=${path}, condition=${condition}, operator=${operator}, itemName=${itemName}, disallowEmpty=${disallowEmpty}, determiner=${determiner}"
         th:with="
-            removeModalId='fg-collection-remove-'+${itemName.replaceAll(' ', '-').trim()}+'-modal',
+            removeModalId='fg-collection-remove-'+${itemName.replaceAll(' ', '-').strip()}+'-modal',
             itemNameTitleCase=${itemName.substring(0,1).toUpperCase() + itemName.substring(1)}
         "
 >

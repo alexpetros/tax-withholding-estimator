@@ -95,7 +95,7 @@ object FgSet extends FlowNodeParser {
     if (inputAndNodeTypeMismatch) throw InvalidFormConfig(s"Path $path must be of type $input")
 
     // Use .child.mkString instead of .text to preserve XML tags (e.g., <span>, <fg-show>) in mixed content
-    val question = (fgSetElement \ "question").head.child.mkString.trim
+    val question = (fgSetElement \ "question").head.child.mkString.strip
     if (question.isEmpty) {
       throw InvalidFormConfig(s"fg-set at path: $path has an empty question tag. This is required.")
     }
@@ -105,18 +105,18 @@ object FgSet extends FlowNodeParser {
     val hint = if (hintNode.isEmpty) {
       None
     } else {
-      Some(hintNode.head.child.mkString.trim)
+      Some(hintNode.head.child.mkString.strip)
     }
     val modalLinkNode = fgSetElement \ "modal-link"
     val modalLink = if (modalLinkNode.isEmpty) {
       None
     } else {
-      Some(modalLinkNode.head.toString.trim)
+      Some(modalLinkNode.head.toString.strip)
     }
 
     val options = (fgSetElement \\ "option").map { option =>
       val value = option \@ "value"
-      val name = option.head.child.mkString.trim
+      val name = option.head.child.mkString.strip
       val description = option \@ "description-key"
       val descriptionValue = Option(description).filter(_.nonEmpty)
       FgSetOption(value, name, descriptionValue)
